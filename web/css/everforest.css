@@ -1,0 +1,55 @@
+/* Everforest CSS Variables */
+/* Generated from template - do not edit manually */
+
+:root {
+  /* Dark theme (default) */
+  --everforest-bg: #2f383e;
+  --everforest-bg1: #374247;
+  --everforest-bg2: #404c51;
+  --everforest-fg: #d3c6aa;
+  --everforest-red: #e67e80;
+  --everforest-orange: #e69875;
+  --everforest-yellow: #dbbc7f;
+  --everforest-green: #a7c080;
+  --everforest-aqua: #83c092;
+  --everforest-blue: #7fbbb3;
+  --everforest-purple: #d699b6;
+  --everforest-gray1: #7a8478;
+  --everforest-gray2: #859289;
+  --everforest-gray3: #9da9a0;
+}
+
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --everforest-bg: #f3ead3;
+    --everforest-bg1: #ede6cf;
+    --everforest-bg2: #e8e3cc;
+    --everforest-fg: #5c6a72;
+    --everforest-gray1: #a6b0a0;
+    --everforest-gray2: #b3c0b0;
+    --everforest-gray3: #c0cdb8;
+  }
+}
+
+/* Force dark theme */
+[data-theme="dark"] {
+  --everforest-bg: #2f383e;
+  --everforest-bg1: #374247;
+  --everforest-bg2: #404c51;
+  --everforest-fg: #d3c6aa;
+  --everforest-gray1: #7a8478;
+  --everforest-gray2: #859289;
+  --everforest-gray3: #9da9a0;
+}
+
+/* Force light theme */
+[data-theme="light"] {
+  --everforest-bg: #f3ead3;
+  --everforest-bg1: #ede6cf;
+  --everforest-bg2: #e8e3cc;
+  --everforest-fg: #5c6a72;
+  --everforest-gray1: #a6b0a0;
+  --everforest-gray2: #b3c0b0;
+  --everforest-gray3: #c0cdb8;
+}

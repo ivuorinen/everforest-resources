@@ -1,0 +1,94 @@
+/* Everforest Demo Styles */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    background-color: var(--everforest-bg);
+    color: var(--everforest-fg);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    margin-bottom: 3rem;
+}
+
+h1 {
+    color: var(--everforest-green);
+    margin: 0 0 1rem 0;
+    font-size: 2.5rem;
+}
+
+h2 {
+    color: var(--everforest-blue);
+    margin: 0 0 1rem 0;
+}
+
+.theme-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.theme-controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.theme-controls input[type="radio"] {
+    accent-color: var(--everforest-aqua);
+}
+
+.color-palette {
+    margin-bottom: 3rem;
+}
+
+.colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.color-swatch {
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid var(--everforest-gray1);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.color-swatch[data-color="bg"] { background-color: var(--everforest-bg); }
+.color-swatch[data-color="bg1"] { background-color: var(--everforest-bg1); }
+.color-swatch[data-color="bg2"] { background-color: var(--everforest-bg2); }
+.color-swatch[data-color="fg"] { background-color: var(--everforest-fg); color: var(--everforest-bg); }
+.color-swatch[data-color="red"] { background-color: var(--everforest-red); color: var(--everforest-bg); }
+.color-swatch[data-color="orange"] { background-color: var(--everforest-orange); color: var(--everforest-bg); }
+.color-swatch[data-color="yellow"] { background-color: var(--everforest-yellow); color: var(--everforest-bg); }
+.color-swatch[data-color="green"] { background-color: var(--everforest-green); color: var(--everforest-bg); }
+.color-swatch[data-color="aqua"] { background-color: var(--everforest-aqua); color: var(--everforest-bg); }
+.color-swatch[data-color="blue"] { background-color: var(--everforest-blue); color: var(--everforest-bg); }
+.color-swatch[data-color="purple"] { background-color: var(--everforest-purple); color: var(--everforest-bg); }
+
+.code-sample pre {
+    background-color: var(--everforest-bg1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--everforest-gray1);
+    overflow-x: auto;
+}
+
+.code-sample code {
+    color: var(--everforest-fg);
+}

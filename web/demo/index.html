@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everforest Theme Demo</title>
+    <link rel="stylesheet" href="../css/everforest.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Everforest Color Scheme</h1>
+            <div class="theme-controls">
+                <label>
+                    <input type="radio" name="theme" value="auto" checked>
+                    Auto
+                </label>
+                <label>
+                    <input type="radio" name="theme" value="dark">
+                    Dark
+                </label>
+                <label>
+                    <input type="radio" name="theme" value="light">
+                    Light
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <section class="color-palette">
+                <h2>Color Palette</h2>
+                <div class="colors">
+                    <div class="color-swatch" data-color="bg">Background</div>
+                    <div class="color-swatch" data-color="bg1">Background 1</div>
+                    <div class="color-swatch" data-color="bg2">Background 2</div>
+                    <div class="color-swatch" data-color="fg">Foreground</div>
+                    <div class="color-swatch" data-color="red">Red</div>
+                    <div class="color-swatch" data-color="orange">Orange</div>
+                    <div class="color-swatch" data-color="yellow">Yellow</div>
+                    <div class="color-swatch" data-color="green">Green</div>
+                    <div class="color-swatch" data-color="aqua">Aqua</div>
+                    <div class="color-swatch" data-color="blue">Blue</div>
+                    <div class="color-swatch" data-color="purple">Purple</div>
+                </div>
+            </section>
+
+            <section class="code-sample">
+                <h2>Code Sample</h2>
+                <pre><code>// Everforest theme example
+function generateTheme(variant, contrast) {
+    const colors = {
+        background: '#2f383e',
+        foreground: '#d3c6aa',
+        accent: '#a7c080'
+    };
+
+    return processTemplate(colors);
+}</code></pre>
+            </section>
+        </main>
+    </div>
+
+    <script src="demo.js"></script>
+</body>
+</html>

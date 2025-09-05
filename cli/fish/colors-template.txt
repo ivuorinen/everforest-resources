@@ -1,0 +1,24 @@
+# Everforest color scheme for fish shell
+# Generated from template - do not edit manually
+
+# Set fish colors
+set -U fish_color_normal {{fg}}
+set -U fish_color_command {{blue}}
+set -U fish_color_keyword {{purple}}
+set -U fish_color_quote {{yellow}}
+set -U fish_color_redirection {{aqua}}
+set -U fish_color_end {{orange}}
+set -U fish_color_error {{red}}
+set -U fish_color_param {{fg}}
+set -U fish_color_comment {{gray1}}
+set -U fish_color_selection --background={{bg1}}
+set -U fish_color_search_match --background={{bg1}}
+set -U fish_color_operator {{green}}
+set -U fish_color_escape {{purple}}
+set -U fish_color_autosuggestion {{gray2}}
+
+# Set fish pager colors
+set -U fish_pager_color_progress {{gray3}}
+set -U fish_pager_color_prefix {{blue}}
+set -U fish_pager_color_completion {{fg}}
+set -U fish_pager_color_description {{gray2}}

@@ -1,0 +1,31 @@
+# Everforest theme for tmux
+# Generated from template - do not edit manually
+
+# Basic color scheme
+set -g default-terminal "screen-256color"
+
+# Window tabs
+set -g window-status-current-style "fg={{fg}},bg={{bg1}}"
+set -g window-status-style "fg={{gray2}},bg={{bg}}"
+set -g window-status-activity-style "fg={{yellow}},bg={{bg}}"
+
+# Pane borders
+set -g pane-active-border-style "fg={{green}}"
+set -g pane-border-style "fg={{gray1}}"
+
+# Status line
+set -g status-style "fg={{fg}},bg={{bg}}"
+set -g status-left-style "fg={{fg}},bg={{bg1}}"
+set -g status-right-style "fg={{fg}},bg={{bg1}}"
+
+# Messages
+set -g message-style "fg={{fg}},bg={{bg1}}"
+set -g message-command-style "fg={{fg}},bg={{bg1}}"
+
+# Status bar content
+set -g status-left "#[fg={{green}}]#S #[default]"
+set -g status-right "#[fg={{blue}}]%H:%M #[fg={{yellow}}]%d-%b-%y"
+
+# Window list
+set -g window-status-format " #I:#W "
+set -g window-status-current-format " #[fg={{bg}},bg={{green}}] #I:#W #[default]"
