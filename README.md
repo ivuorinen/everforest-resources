@@ -47,3 +47,14 @@ Neovim, VS Code, JetBrains IDEs, Zed, Sublime Text
 ## CI Requirements
 
 All checks must pass: lint + build + snapshots + commitlint + cli-verify
+
+## Acknowledgements
+
+This project is based on the beautiful **Everforest** color scheme created by [sainnhe](https://github.com/sainnhe). 
+
+- **Original Everforest theme**: https://github.com/sainnhe/everforest
+- **Original author**: [@sainnhe](https://github.com/sainnhe)
+
+Thank you to sainnhe for creating such an elegant and well-balanced color scheme that works beautifully across so many different tools and environments. This resource hub exists to make it easier for developers to apply the Everforest theme consistently across their entire development workflow.
+
+The color palette definitions in this project are derived from the original Everforest theme specifications.
