@@ -29,7 +29,7 @@ log_header() { echo -e "${PURPLE}🎨 $1${NC}"; }
 
 # Usage information
 usage() {
-    cat <<EOF
+  cat <<EOF
 Everforest Resources Installer
 
 Usage: $0 [OPTIONS] [CATEGORY]
@@ -70,328 +70,335 @@ FORCE=false
 CREATE_BACKUP=false
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-    -h | --help)
-        usage
-        exit 0
-        ;;
-    -v | --variant)
-        VARIANT="$2"
-        shift 2
-        ;;
-    -b | --backup)
-        CREATE_BACKUP=true
-        shift
-        ;;
-    -n | --dry-run)
-        DRY_RUN=true
-        shift
-        ;;
-    -f | --force)
-        FORCE=true
-        shift
-        ;;
-    --list-variants)
-        echo "Available variants:"
-        echo "  dark-hard, dark-medium, dark-soft"
-        echo "  light-hard, light-medium, light-soft"
-        exit 0
-        ;;
-    all | terminals | editors | cli | web)
-        CATEGORY="$1"
-        shift
-        ;;
-    *)
-        log_error "Unknown option: $1"
-        usage
-        exit 1
-        ;;
-    esac
+  case $1 in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -v | --variant)
+    VARIANT="$2"
+    shift 2
+    ;;
+  -b | --backup)
+    CREATE_BACKUP=true
+    shift
+    ;;
+  -n | --dry-run)
+    DRY_RUN=true
+    shift
+    ;;
+  -f | --force)
+    FORCE=true
+    shift
+    ;;
+  --list-variants)
+    echo "Available variants:"
+    echo "  dark-hard, dark-medium, dark-soft"
+    echo "  light-hard, light-medium, light-soft"
+    exit 0
+    ;;
+  all | terminals | editors | cli | web)
+    CATEGORY="$1"
+    shift
+    ;;
+  *)
+    log_error "Unknown option: $1"
+    usage
+    exit 1
+    ;;
+  esac
 done
 
 # Tool detection functions
 check_tool() {
-    command -v "$1" >/dev/null 2>&1
+  command -v "$1" >/dev/null 2>&1
 }
 
 check_directory() {
-    [[ -d "$1" ]]
+  [[ -d "$1" ]]
 }
 
 check_config_dir() {
-    local dir="$1"
-    [[ -d "$CONFIG_DIR/$dir" ]] || [[ -d "$HOME/.$dir" ]] || [[ -d "$HOME/Library/Application Support/$dir" ]]
+  local dir="$1"
+  [[ -d "$CONFIG_DIR/$dir" ]] || [[ -d "$HOME/.$dir" ]] || [[ -d "$HOME/Library/Application Support/$dir" ]]
+}
+
+# Check if tool is available (installed or has config directory)
+check_tool_available() {
+  local tool="$1"
+  local config_dir="$2"
+
+  if check_tool "$tool"; then
+    return 0
+  elif check_config_dir "$config_dir"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# Install with tool availability check
+install_tool_config() {
+  local tool_name="$1"
+  local config_name="$2"
+  local src="$3"
+  local dest="$4"
+  local display_name="$5"
+
+  if check_tool_available "$tool_name" "$config_name"; then
+    install_file "$src" "$dest" "$display_name"
+  else
+    log_info "Skipping $display_name (tool not installed and no config directory found)"
+  fi
 }
 
 # Validate variant
 validate_variant() {
-    local valid_variants=("dark-hard" "dark-medium" "dark-soft" "light-hard" "light-medium" "light-soft")
-    for valid in "${valid_variants[@]}"; do
-        [[ "$VARIANT" == "$valid" ]] && return 0
-    done
-    log_error "Invalid variant: $VARIANT"
-    echo "Valid variants: ${valid_variants[*]}"
-    exit 1
+  local valid_variants=("dark-hard" "dark-medium" "dark-soft" "light-hard" "light-medium" "light-soft")
+  for valid in "${valid_variants[@]}"; do
+    [[ "$VARIANT" == "$valid" ]] && return 0
+  done
+  log_error "Invalid variant: $VARIANT"
+  echo "Valid variants: ${valid_variants[*]}"
+  exit 1
 }
 
 # Create backup
 create_backup() {
-    [[ "$CREATE_BACKUP" == "false" ]] && return
+  [[ "$CREATE_BACKUP" == "false" ]] && return
 
-    log_info "Creating backup at $BACKUP_DIR"
-    mkdir -p "$BACKUP_DIR"
+  log_info "Creating backup at $BACKUP_DIR"
+  mkdir -p "$BACKUP_DIR"
 
-    # Backup common config directories
-    for dir in alacritty kitty wezterm starship tmux htop fish nvim vscode; do
-        if [[ -d "$CONFIG_DIR/$dir" ]]; then
-            cp -r "$CONFIG_DIR/$dir" "$BACKUP_DIR/" 2>/dev/null || true
-        fi
-    done
+  # Backup common config directories
+  for dir in alacritty kitty wezterm starship tmux htop fish nvim vscode; do
+    if [[ -d "$CONFIG_DIR/$dir" ]]; then
+      cp -r "$CONFIG_DIR/$dir" "$BACKUP_DIR/" 2>/dev/null || true
+    fi
+  done
 
-    log_success "Backup created at $BACKUP_DIR"
+  log_success "Backup created at $BACKUP_DIR"
 }
 
 # Install file with safety checks
 install_file() {
-    local src="$1"
-    local dest="$2"
-    local name="$3"
+  local src="$1"
+  local dest="$2"
+  local name="$3"
 
-    if [[ ! -f "$src" ]]; then
-        log_warning "$name source file not found: $src"
-        return 1
-    fi
+  if [[ ! -f "$src" ]]; then
+    log_warning "$name source file not found: $src"
+    return 1
+  fi
 
-    if [[ -f "$dest" && "$FORCE" == "false" ]]; then
-        log_warning "$name already exists: $dest (use --force to overwrite)"
-        return 1
-    fi
+  if [[ -f "$dest" && "$FORCE" == "false" ]]; then
+    log_warning "$name already exists: $dest (use --force to overwrite)"
+    return 1
+  fi
 
-    if [[ "$DRY_RUN" == "true" ]]; then
-        log_info "[DRY RUN] Would install $name: $src -> $dest"
-        return 0
-    fi
+  if [[ "$DRY_RUN" == "true" ]]; then
+    log_info "[DRY RUN] Would install $name: $src -> $dest"
+    return 0
+  fi
 
-    mkdir -p "$(dirname "$dest")"
-    cp "$src" "$dest"
-    log_success "Installed $name"
+  mkdir -p "$(dirname "$dest")"
+  cp "$src" "$dest"
+  log_success "Installed $name"
 }
 
 # Install terminal themes
 install_terminals() {
-    log_header "Installing Terminal Themes ($VARIANT)"
+  log_header "Installing Terminal Themes ($VARIANT)"
 
-    # Alacritty
-    if check_tool "alacritty" || check_config_dir "alacritty"; then
-        install_file \
-            "$SCRIPT_DIR/terminals/alacritty/everforest-$VARIANT.yml" \
-            "$CONFIG_DIR/alacritty/themes/everforest-$VARIANT.yml" \
-            "Alacritty theme"
+  # Alacritty
+  install_tool_config "alacritty" "alacritty" \
+    "$SCRIPT_DIR/terminals/alacritty/everforest-$VARIANT.yml" \
+    "$CONFIG_DIR/alacritty/themes/everforest-$VARIANT.yml" \
+    "Alacritty theme"
+
+  # Kitty
+  install_tool_config "kitty" "kitty" \
+    "$SCRIPT_DIR/terminals/kitty/everforest-$VARIANT.conf" \
+    "$CONFIG_DIR/kitty/themes/everforest-$VARIANT.conf" \
+    "Kitty theme"
+
+  # WezTerm
+  install_tool_config "wezterm" "wezterm" \
+    "$SCRIPT_DIR/terminals/wezterm/everforest-$VARIANT.lua" \
+    "$CONFIG_DIR/wezterm/colors/everforest-$VARIANT.lua" \
+    "WezTerm theme"
+
+  # Windows Terminal (if on Windows or WSL)
+  if [[ -n "${WSL_DISTRO_NAME:-}" ]] || command -v wsl.exe >/dev/null 2>&1; then
+    local wt_dest="$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
+    if [[ -d "$wt_dest" ]]; then
+      install_file \
+        "$SCRIPT_DIR/terminals/windows-terminal/everforest-$VARIANT.json" \
+        "$wt_dest/everforest-$VARIANT.json" \
+        "Windows Terminal theme"
     else
-        log_info "Skipping Alacritty (not installed)"
+      log_info "Skipping Windows Terminal (config directory not found)"
     fi
+  fi
 
-    # Kitty
-    if check_tool "kitty" || check_config_dir "kitty"; then
-        install_file \
-            "$SCRIPT_DIR/terminals/kitty/everforest-$VARIANT.conf" \
-            "$CONFIG_DIR/kitty/themes/everforest-$VARIANT.conf" \
-            "Kitty theme"
-    else
-        log_info "Skipping Kitty (not installed)"
-    fi
-
-    # WezTerm
-    if check_tool "wezterm" || check_config_dir "wezterm"; then
-        install_file \
-            "$SCRIPT_DIR/terminals/wezterm/everforest-$VARIANT.lua" \
-            "$CONFIG_DIR/wezterm/colors/everforest-$VARIANT.lua" \
-            "WezTerm theme"
-    else
-        log_info "Skipping WezTerm (not installed)"
-    fi
-
-    # Windows Terminal (if on Windows or WSL)
-    if [[ -n "${WSL_DISTRO_NAME:-}" ]] || command -v wsl.exe >/dev/null 2>&1; then
-        local wt_dest="$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
-        if [[ -d "$wt_dest" ]]; then
-            install_file \
-                "$SCRIPT_DIR/terminals/windows-terminal/everforest-$VARIANT.json" \
-                "$wt_dest/everforest-$VARIANT.json" \
-                "Windows Terminal theme"
-        fi
-    fi
-
-    # Ghostty
-    if check_tool "ghostty" || check_config_dir "ghostty"; then
-        install_file \
-            "$SCRIPT_DIR/terminals/ghostty/everforest-$VARIANT.conf" \
-            "$CONFIG_DIR/ghostty/themes/everforest-$VARIANT.conf" \
-            "Ghostty theme"
-    else
-        log_info "Skipping Ghostty (not installed)"
-    fi
+  # Ghostty
+  install_tool_config "ghostty" "ghostty" \
+    "$SCRIPT_DIR/terminals/ghostty/everforest-$VARIANT.conf" \
+    "$CONFIG_DIR/ghostty/themes/everforest-$VARIANT.conf" \
+    "Ghostty theme"
 }
 
 # Install editor themes
 install_editors() {
-    log_header "Installing Editor Themes ($VARIANT)"
+  log_header "Installing Editor Themes ($VARIANT)"
 
-    # Neovim
+  # Neovim
+  install_file \
+    "$SCRIPT_DIR/editors/vim-nvim/everforest-$VARIANT.lua" \
+    "$CONFIG_DIR/nvim/colors/everforest-$VARIANT.lua" \
+    "Neovim theme"
+
+  # VS Code
+  local vscode_dir="$HOME/.vscode/extensions"
+  [[ -d "$HOME/.vscode-insiders/extensions" ]] && vscode_dir="$HOME/.vscode-insiders/extensions"
+
+  if [[ -d "$vscode_dir" ]]; then
+    mkdir -p "$vscode_dir/everforest-themes/themes"
     install_file \
-        "$SCRIPT_DIR/editors/vim-nvim/everforest-$VARIANT.lua" \
-        "$CONFIG_DIR/nvim/colors/everforest-$VARIANT.lua" \
-        "Neovim theme"
+      "$SCRIPT_DIR/editors/vscode/everforest-theme-$VARIANT.json" \
+      "$vscode_dir/everforest-themes/themes/everforest-$VARIANT.json" \
+      "VS Code theme"
+  fi
 
-    # VS Code
-    local vscode_dir="$HOME/.vscode/extensions"
-    [[ -d "$HOME/.vscode-insiders/extensions" ]] && vscode_dir="$HOME/.vscode-insiders/extensions"
-
-    if [[ -d "$vscode_dir" ]]; then
-        mkdir -p "$vscode_dir/everforest-themes/themes"
-        install_file \
-            "$SCRIPT_DIR/editors/vscode/everforest-theme-$VARIANT.json" \
-            "$vscode_dir/everforest-themes/themes/everforest-$VARIANT.json" \
-            "VS Code theme"
+  # JetBrains
+  local jetbrains_config=""
+  for ide in IntelliJIdea PyCharm WebStorm PhpStorm GoLand RustRover; do
+    local config_path="$HOME/Library/Application Support/JetBrains/$ide*/colors"
+    if [[ -d $config_path ]]; then
+      install_file \
+        "$SCRIPT_DIR/editors/jetbrains/everforest-$VARIANT.xml" \
+        "$config_path/everforest-$VARIANT.icls" \
+        "JetBrains theme"
+      break
     fi
+  done
 
-    # JetBrains
-    local jetbrains_config=""
-    for ide in IntelliJIdea PyCharm WebStorm PhpStorm GoLand RustRover; do
-        local config_path="$HOME/Library/Application Support/JetBrains/$ide*/colors"
-        if [[ -d $config_path ]]; then
-            install_file \
-                "$SCRIPT_DIR/editors/jetbrains/everforest-$VARIANT.xml" \
-                "$config_path/everforest-$VARIANT.icls" \
-                "JetBrains theme"
-            break
-        fi
-    done
+  # Zed
+  install_file \
+    "$SCRIPT_DIR/editors/zed/everforest-$VARIANT.json" \
+    "$CONFIG_DIR/zed/themes/everforest-$VARIANT.json" \
+    "Zed theme"
 
-    # Zed
+  # Sublime Text
+  local sublime_packages="$HOME/Library/Application Support/Sublime Text/Packages/User"
+  [[ ! -d "$sublime_packages" ]] && sublime_packages="$HOME/.config/sublime-text/Packages/User"
+
+  if [[ -d "$sublime_packages" ]]; then
     install_file \
-        "$SCRIPT_DIR/editors/zed/everforest-$VARIANT.json" \
-        "$CONFIG_DIR/zed/themes/everforest-$VARIANT.json" \
-        "Zed theme"
-
-    # Sublime Text
-    local sublime_packages="$HOME/Library/Application Support/Sublime Text/Packages/User"
-    [[ ! -d "$sublime_packages" ]] && sublime_packages="$HOME/.config/sublime-text/Packages/User"
-
-    if [[ -d "$sublime_packages" ]]; then
-        install_file \
-            "$SCRIPT_DIR/editors/sublime/everforest-$VARIANT.tmTheme" \
-            "$sublime_packages/everforest-$VARIANT.tmTheme" \
-            "Sublime Text theme"
-    fi
+      "$SCRIPT_DIR/editors/sublime/everforest-$VARIANT.tmTheme" \
+      "$sublime_packages/everforest-$VARIANT.tmTheme" \
+      "Sublime Text theme"
+  fi
 }
 
 # Install CLI tools
 install_cli() {
-    log_header "Installing CLI Tools ($VARIANT)"
+  log_header "Installing CLI Tools ($VARIANT)"
 
-    # Core shell tools
-    if check_tool "starship"; then
-        install_file \
-            "$SCRIPT_DIR/cli/starship/starship-$VARIANT.toml" \
-            "$CONFIG_DIR/starship/themes/everforest-$VARIANT.toml" \
-            "Starship theme"
-    else
-        log_info "Skipping Starship prompt (not installed)"
-    fi
+  # Core shell tools
+  install_tool_config "starship" "starship" \
+    "$SCRIPT_DIR/cli/starship/starship-$VARIANT.toml" \
+    "$CONFIG_DIR/starship/themes/everforest-$VARIANT.toml" \
+    "Starship theme"
 
-    install_file \
-        "$SCRIPT_DIR/cli/fish/everforest-$VARIANT.fish" \
-        "$CONFIG_DIR/fish/conf.d/everforest-$VARIANT.fish" \
-        "Fish colors"
+  install_tool_config "fish" "fish" \
+    "$SCRIPT_DIR/cli/fish/everforest-$VARIANT.fish" \
+    "$CONFIG_DIR/fish/conf.d/everforest-$VARIANT.fish" \
+    "Fish colors"
 
-    # File and directory tools
-    install_file \
-        "$SCRIPT_DIR/cli/ls_colors/everforest-$VARIANT.sh" \
-        "$CONFIG_DIR/dircolors/everforest.sh" \
-        "LS_COLORS"
+  # File and directory tools
+  install_file \
+    "$SCRIPT_DIR/cli/ls_colors/everforest-$VARIANT.sh" \
+    "$CONFIG_DIR/dircolors/everforest.sh" \
+    "LS_COLORS"
 
-    install_file \
-        "$SCRIPT_DIR/cli/eza/everforest-$VARIANT.sh" \
-        "$CONFIG_DIR/eza/theme.sh" \
-        "eza colors"
+  install_tool_config "eza" "eza" \
+    "$SCRIPT_DIR/cli/eza/everforest-$VARIANT.sh" \
+    "$CONFIG_DIR/eza/theme.sh" \
+    "eza colors"
 
-    # Git tools
-    install_file \
-        "$SCRIPT_DIR/cli/delta/gitconfig-$VARIANT.delta" \
-        "$CONFIG_DIR/git/everforest-delta" \
-        "Git delta"
+  # Git tools
+  install_file \
+    "$SCRIPT_DIR/cli/delta/gitconfig-$VARIANT.delta" \
+    "$CONFIG_DIR/git/everforest-delta" \
+    "Git delta"
 
-    install_file \
-        "$SCRIPT_DIR/cli/lazygit/config-$VARIANT.yml" \
-        "$CONFIG_DIR/lazygit/themes/everforest-$VARIANT.yml" \
-        "LazyGit theme"
+  install_tool_config "lazygit" "lazygit" \
+    "$SCRIPT_DIR/cli/lazygit/config-$VARIANT.yml" \
+    "$CONFIG_DIR/lazygit/themes/everforest-$VARIANT.yml" \
+    "LazyGit theme"
 
-    install_file \
-        "$SCRIPT_DIR/cli/gitui/theme-$VARIANT.ron" \
-        "$CONFIG_DIR/gitui/themes/everforest-$VARIANT.ron" \
-        "GitUI theme"
+  install_tool_config "gitui" "gitui" \
+    "$SCRIPT_DIR/cli/gitui/theme-$VARIANT.ron" \
+    "$CONFIG_DIR/gitui/themes/everforest-$VARIANT.ron" \
+    "GitUI theme"
 
-    # System monitoring
-    install_file \
-        "$SCRIPT_DIR/cli/htop/htoprc-$VARIANT" \
-        "$CONFIG_DIR/htop/themes/everforest-$VARIANT" \
-        "htop theme"
+  # System monitoring
+  install_tool_config "htop" "htop" \
+    "$SCRIPT_DIR/cli/htop/htoprc-$VARIANT" \
+    "$CONFIG_DIR/htop/themes/everforest-$VARIANT" \
+    "htop theme"
 
-    install_file \
-        "$SCRIPT_DIR/cli/btop/everforest-$VARIANT.theme" \
-        "$CONFIG_DIR/btop/themes/everforest.theme" \
-        "btop theme"
+  install_tool_config "btop" "btop" \
+    "$SCRIPT_DIR/cli/btop/everforest-$VARIANT.theme" \
+    "$CONFIG_DIR/btop/themes/everforest.theme" \
+    "btop theme"
 
-    install_file \
-        "$SCRIPT_DIR/cli/bottom/bottom-$VARIANT.toml" \
-        "$CONFIG_DIR/bottom/themes/everforest-$VARIANT.toml" \
-        "bottom theme"
+  install_tool_config "bottom" "bottom" \
+    "$SCRIPT_DIR/cli/bottom/bottom-$VARIANT.toml" \
+    "$CONFIG_DIR/bottom/themes/everforest-$VARIANT.toml" \
+    "bottom theme"
 
-    # Other tools
-    if check_tool "fzf"; then
-        install_file \
-            "$SCRIPT_DIR/cli/fzf/everforest-$VARIANT.sh" \
-            "$CONFIG_DIR/fzf/everforest.sh" \
-            "FZF colors"
-    else
-        log_info "Skipping FZF colors (not installed)"
-    fi
+  # Other tools
+  install_tool_config "fzf" "fzf" \
+    "$SCRIPT_DIR/cli/fzf/everforest-$VARIANT.sh" \
+    "$CONFIG_DIR/fzf/everforest.sh" \
+    "FZF colors"
 
-    install_file \
-        "$SCRIPT_DIR/cli/tmux/everforest.tmux-$VARIANT.conf" \
-        "$CONFIG_DIR/tmux/themes/everforest.conf" \
-        "tmux theme"
+  install_tool_config "tmux" "tmux" \
+    "$SCRIPT_DIR/cli/tmux/everforest.tmux-$VARIANT.conf" \
+    "$CONFIG_DIR/tmux/themes/everforest.conf" \
+    "tmux theme"
 }
 
 # Install web resources
 install_web() {
-    log_header "Installing Web Resources ($VARIANT)"
+  log_header "Installing Web Resources ($VARIANT)"
 
-    local web_dir="$HOME/.everforest-web"
-    mkdir -p "$web_dir"
+  local web_dir="$HOME/.everforest-web"
+  mkdir -p "$web_dir"
 
+  install_file \
+    "$SCRIPT_DIR/web/css/everforest-$VARIANT.css" \
+    "$web_dir/everforest-$VARIANT.css" \
+    "CSS theme"
+
+  # Copy demo files
+  if [[ -f "$SCRIPT_DIR/docs/examples/web-demo.html" ]]; then
     install_file \
-        "$SCRIPT_DIR/web/css/everforest-$VARIANT.css" \
-        "$web_dir/everforest-$VARIANT.css" \
-        "CSS theme"
+      "$SCRIPT_DIR/docs/examples/web-demo.html" \
+      "$web_dir/demo.html" \
+      "Web demo"
+  fi
 
-    # Copy demo files
-    if [[ -f "$SCRIPT_DIR/docs/examples/web-demo.html" ]]; then
-        install_file \
-            "$SCRIPT_DIR/docs/examples/web-demo.html" \
-            "$web_dir/demo.html" \
-            "Web demo"
-    fi
-
-    log_info "Web resources installed to $web_dir"
+  log_info "Web resources installed to $web_dir"
 }
 
 # Print post-installation instructions
 print_instructions() {
-    log_header "Installation Complete!"
+  log_header "Installation Complete!"
 
-    cat <<EOF
+  cat <<EOF
 
 Next steps to activate themes:
 
@@ -423,43 +430,43 @@ ${CYAN}Environment Variables:${NC}
 
 EOF
 
-    if [[ "$CREATE_BACKUP" == "true" ]]; then
-        log_info "Backup saved to: $BACKUP_DIR"
-    fi
+  if [[ "$CREATE_BACKUP" == "true" ]]; then
+    log_info "Backup saved to: $BACKUP_DIR"
+  fi
 }
 
 # Main installation logic
 main() {
-    log_header "Everforest Resources Installer"
-    log_info "Variant: $VARIANT"
-    log_info "Category: $CATEGORY"
-    [[ "$DRY_RUN" == "true" ]] && log_info "Mode: DRY RUN"
+  log_header "Everforest Resources Installer"
+  log_info "Variant: $VARIANT"
+  log_info "Category: $CATEGORY"
+  [[ "$DRY_RUN" == "true" ]] && log_info "Mode: DRY RUN"
 
-    validate_variant
-    create_backup
+  validate_variant
+  create_backup
 
-    case "$CATEGORY" in
-    all)
-        install_terminals
-        install_editors
-        install_cli
-        install_web
-        ;;
-    terminals)
-        install_terminals
-        ;;
-    editors)
-        install_editors
-        ;;
-    cli)
-        install_cli
-        ;;
-    web)
-        install_web
-        ;;
-    esac
+  case "$CATEGORY" in
+  all)
+    install_terminals
+    install_editors
+    install_cli
+    install_web
+    ;;
+  terminals)
+    install_terminals
+    ;;
+  editors)
+    install_editors
+    ;;
+  cli)
+    install_cli
+    ;;
+  web)
+    install_web
+    ;;
+  esac
 
-    [[ "$DRY_RUN" == "false" ]] && print_instructions
+  [[ "$DRY_RUN" == "false" ]] && print_instructions
 }
 
 # Run main function

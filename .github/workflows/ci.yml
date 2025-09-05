@@ -28,6 +28,7 @@ jobs:
   generate:
     name: Generate Themes
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
@@ -57,8 +58,9 @@ jobs:
           echo "✅ All generated files are up to date"
 
   test:
-    name: Test Web Components
+    name: Test Web Components & Snapshots
     runs-on: ubuntu-latest
+    needs: generate
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
@@ -74,8 +76,14 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
+      - name: Generate themes
+        run: npm run generate
+
+      - name: Run Playwright e2e tests
         run: npm run test:e2e
+
+      - name: Generate snapshots
+        run: npm run snapshots
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -88,6 +96,7 @@ jobs:
   verify-installation:
     name: Verify Installation Scripts
     runs-on: ${{ matrix.os }}
+    needs: generate
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -142,6 +151,7 @@ jobs:
   build-stats:
     name: Build Statistics
     runs-on: ubuntu-latest
+    needs: generate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
