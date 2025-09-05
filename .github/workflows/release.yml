@@ -1,0 +1,219 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  build:
+    name: Build Release Assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate all themes
+        run: npm run generate
+
+      - name: Validate themes
+        run: npm run validate
+
+      - name: Create release archives
+        run: |
+          # Create directories for different packages
+          mkdir -p dist/{terminals,editors,cli,web,complete}
+
+          # Package terminals
+          cp -r terminals/* dist/terminals/
+          cd dist && tar -czf everforest-terminals.tar.gz terminals/ && cd ..
+
+          # Package editors
+          cp -r editors/* dist/editors/
+          cd dist && tar -czf everforest-editors.tar.gz editors/ && cd ..
+
+          # Package CLI tools
+          cp -r cli/* dist/cli/
+          cd dist && tar -czf everforest-cli.tar.gz cli/ && cd ..
+
+          # Package web resources
+          cp -r web/* dist/web/
+          cp -r docs/examples/* dist/web/
+          cd dist && tar -czf everforest-web.tar.gz web/ && cd ..
+
+          # Complete package
+          cp -r {terminals,editors,cli,web,docs} dist/complete/
+          cp install.sh README.md LICENSE dist/complete/
+          cd dist && tar -czf everforest-complete.tar.gz complete/ && cd ..
+
+          # Create checksums
+          cd dist
+          sha256sum *.tar.gz > checksums.txt
+          cd ..
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-archives
+          path: dist/*.tar.gz
+          retention-days: 30
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: checksums
+          path: dist/checksums.txt
+          retention-days: 30
+
+  test-installation:
+    name: Test Installation on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        variant: [dark-medium, light-medium]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate themes
+        run: npm run generate
+
+      - name: Test full installation
+        run: |
+          # Test installation with backup
+          ./install.sh --variant ${{ matrix.variant }} --backup --dry-run
+
+          # Test category installations
+          ./install.sh --variant ${{ matrix.variant }} terminals --dry-run
+          ./install.sh --variant ${{ matrix.variant }} cli --dry-run
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build, test-installation]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-archives
+          path: dist/
+
+      - name: Download checksums
+        uses: actions/download-artifact@v4
+        with:
+          name: checksums
+          path: dist/
+
+      - name: Generate changelog
+        run: |
+          # Extract version from tag
+          VERSION=${GITHUB_REF#refs/tags/}
+
+          # Generate changelog (basic version)
+          echo "# Everforest Resources $VERSION" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "## 🎨 What's New" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+
+          # Count generated files
+          npm ci && npm run generate
+          TOTAL_FILES=$(find . -name "*-dark-*" -o -name "*-light-*" | wc -l)
+          CLI_TOOLS=$(ls -1 cli/ | grep -v install.sh | wc -l)
+          TERMINALS=$(ls -1 terminals/ | wc -l)
+          EDITORS=$(ls -1 editors/ | wc -l)
+
+          echo "- 🎯 **$TOTAL_FILES** generated theme files" >> CHANGELOG.md
+          echo "- 🖥️ **$TERMINALS** terminal emulators supported" >> CHANGELOG.md
+          echo "- 📝 **$EDITORS** code editors supported" >> CHANGELOG.md
+          echo "- 🛠️ **$CLI_TOOLS** CLI tools configured" >> CHANGELOG.md
+          echo "- 🌐 Complete web development CSS framework" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "## 📦 Installation" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo '```bash' >> CHANGELOG.md
+          echo "# Download and extract" >> CHANGELOG.md
+          echo "curl -L https://github.com/ivuorinen/everforest-resources/archive/$VERSION.tar.gz | tar xz" >> CHANGELOG.md
+          echo "cd everforest-resources-${VERSION#v}" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "# Install everything" >> CHANGELOG.md
+          echo "./install.sh" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "# Or install specific categories" >> CHANGELOG.md
+          echo "./install.sh terminals" >> CHANGELOG.md
+          echo "./install.sh --variant light-medium cli" >> CHANGELOG.md
+          echo '```' >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "## 🗂️ Package Contents" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "- **everforest-complete.tar.gz**: Everything in one package" >> CHANGELOG.md
+          echo "- **everforest-terminals.tar.gz**: Terminal emulator themes only" >> CHANGELOG.md
+          echo "- **everforest-editors.tar.gz**: Code editor themes only" >> CHANGELOG.md
+          echo "- **everforest-cli.tar.gz**: CLI tool configurations only" >> CHANGELOG.md
+          echo "- **everforest-web.tar.gz**: Web development resources only" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "All packages include 6 theme variants (dark/light × hard/medium/soft)." >> CHANGELOG.md
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*.tar.gz
+            dist/checksums.txt
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  notify:
+    name: Post-Release Notifications
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: success()
+    steps:
+      - name: Extract version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Release ${{ env.VERSION }} Deployed Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Available Downloads:" >> $GITHUB_STEP_SUMMARY
+          echo "- [Complete Package](https://github.com/ivuorinen/everforest-resources/releases/download/${{ env.VERSION }}/everforest-complete.tar.gz)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Terminals Only](https://github.com/ivuorinen/everforest-resources/releases/download/${{ env.VERSION }}/everforest-terminals.tar.gz)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Editors Only](https://github.com/ivuorinen/everforest-resources/releases/download/${{ env.VERSION }}/everforest-editors.tar.gz)" >> $GITHUB_STEP_SUMMARY
+          echo "- [CLI Tools Only](https://github.com/ivuorinen/everforest-resources/releases/download/${{ env.VERSION }}/everforest-cli.tar.gz)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Web Resources Only](https://github.com/ivuorinen/everforest-resources/releases/download/${{ env.VERSION }}/everforest-web.tar.gz)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎯 Quick Install:" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo "curl -L https://github.com/ivuorinen/everforest-resources/archive/${{ env.VERSION }}.tar.gz | tar xz" >> $GITHUB_STEP_SUMMARY
+          echo "cd everforest-resources-${VERSION#v} && ./install.sh" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

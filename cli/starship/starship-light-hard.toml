@@ -1,0 +1,63 @@
+# Everforest theme for Starship
+# Generated from template - do not edit manually
+
+format = """
+[](#f4f0d9)\
+$username\
+[](bg:#efebd4 fg:#f4f0d9)\
+$directory\
+[](fg:#efebd4 bg:#fdf6e3)\
+$git_branch\
+$git_status\
+[](fg:#fdf6e3 bg:#f4f0d9)\
+$nodejs\
+$rust\
+$golang\
+$php\
+[](fg:#f4f0d9)\
+"""
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+[username]
+show_always = true
+style_user = "bg:#f4f0d9 fg:#5c6a72"
+style_root = "bg:#f4f0d9 fg:#e67e80"
+format = '[$user ]($style)'
+disabled = false
+
+[directory]
+style = "bg:#efebd4 fg:#7fbbb3"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:#fdf6e3 fg:#a7c080"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#fdf6e3 fg:#e67e80"
+format = '[$all_status$ahead_behind ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#f4f0d9 fg:#dbbc7f"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#f4f0d9 fg:#e69875"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#f4f0d9 fg:#83c092"
+format = '[ $symbol ($version) ]($style)'
+
+[php]
+symbol = ""
+style = "bg:#f4f0d9 fg:#d699b6"
+format = '[ $symbol ($version) ]($style)'

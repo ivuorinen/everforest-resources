@@ -1,0 +1,6 @@
+# Everforest colors for fd
+# Generated from template - do not edit manually
+# Source this in your shell configuration
+
+# fd uses LS_COLORS, so we set the same colors
+export LS_COLORS="di=4:fi=7:ln=6:pi=3:so=5:bd=3;0:cd=3;0:or=1;0:mi=1;0:su=7;1:sg=7;3:ca=7;1:tw=7;4:ow=7;4:st=7;4:ex=2:*.tar=9:*.tgz=9:*.arc=9:*.arj=9:*.taz=9:*.lha=9:*.lz4=9:*.lzh=9:*.lzma=9:*.tlz=9:*.txz=9:*.tzo=9:*.t7z=9:*.zip=9:*.z=9:*.dz=9:*.gz=9:*.lrz=9:*.lz=9:*.lzo=9:*.xz=9:*.zst=9:*.tzst=9:*.bz2=9:*.bz=9:*.tbz=9:*.tbz2=9:*.tz=9:*.deb=9:*.rpm=9:*.jar=9:*.war=9:*.ear=9:*.sar=9:*.rar=9:*.alz=9:*.ace=9:*.zoo=9:*.cpio=9:*.7z=9:*.rz=9:*.cab=9:*.wim=9:*.swm=9:*.dwm=9:*.esd=9:*.jpg=5:*.jpeg=5:*.mjpg=5:*.mjpeg=5:*.gif=5:*.bmp=5:*.pbm=5:*.pgm=5:*.ppm=5:*.tga=5:*.xbm=5:*.xpm=5:*.tif=5:*.tiff=5:*.png=5:*.svg=5:*.svgz=5:*.mng=5:*.pcx=5:*.mov=5:*.mpg=5:*.mpeg=5:*.m2v=5:*.mkv=5:*.webm=5:*.webp=5:*.ogm=5:*.mp4=5:*.m4v=5:*.mp4v=5:*.vob=5:*.qt=5:*.nuv=5:*.wmv=5:*.asf=5:*.rm=5:*.rmvb=5:*.flc=5:*.avi=5:*.fli=5:*.flv=5:*.gl=5:*.dl=5:*.xcf=5:*.xwd=5:*.yuv=5:*.cgm=5:*.emf=5:*.ogv=5:*.ogx=5"

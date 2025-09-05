@@ -1,0 +1,223 @@
+/* Everforest CSS Variables and Utility Classes */
+/* Generated from template - do not edit manually */
+
+:root {
+  /* Background colors */
+  --everforest-bg: {{bg}};
+  --everforest-bg1: {{bg1}};
+  --everforest-bg2: {{bg2}};
+
+  /* Foreground colors */
+  --everforest-fg: {{fg}};
+
+  /* Accent colors */
+  --everforest-red: {{red}};
+  --everforest-orange: {{orange}};
+  --everforest-yellow: {{yellow}};
+  --everforest-green: {{green}};
+  --everforest-aqua: {{aqua}};
+  --everforest-blue: {{blue}};
+  --everforest-purple: {{purple}};
+
+  /* Gray scale */
+  --everforest-gray1: {{gray1}};
+  --everforest-gray2: {{gray2}};
+  --everforest-gray3: {{gray3}};
+}
+
+/* Base theme application */
+.everforest {
+  background-color: var(--everforest-bg);
+  color: var(--everforest-fg);
+}
+
+/* Background utilities */
+.bg-everforest { background-color: var(--everforest-bg); }
+.bg-everforest-1 { background-color: var(--everforest-bg1); }
+.bg-everforest-2 { background-color: var(--everforest-bg2); }
+
+/* Text color utilities */
+.text-everforest { color: var(--everforest-fg); }
+.text-everforest-red { color: var(--everforest-red); }
+.text-everforest-orange { color: var(--everforest-orange); }
+.text-everforest-yellow { color: var(--everforest-yellow); }
+.text-everforest-green { color: var(--everforest-green); }
+.text-everforest-aqua { color: var(--everforest-aqua); }
+.text-everforest-blue { color: var(--everforest-blue); }
+.text-everforest-purple { color: var(--everforest-purple); }
+.text-everforest-gray1 { color: var(--everforest-gray1); }
+.text-everforest-gray2 { color: var(--everforest-gray2); }
+.text-everforest-gray3 { color: var(--everforest-gray3); }
+
+/* Border utilities */
+.border-everforest { border-color: var(--everforest-gray2); }
+.border-everforest-red { border-color: var(--everforest-red); }
+.border-everforest-green { border-color: var(--everforest-green); }
+.border-everforest-blue { border-color: var(--everforest-blue); }
+.border-everforest-yellow { border-color: var(--everforest-yellow); }
+
+/* Accent backgrounds */
+.bg-everforest-red { background-color: var(--everforest-red); }
+.bg-everforest-orange { background-color: var(--everforest-orange); }
+.bg-everforest-yellow { background-color: var(--everforest-yellow); }
+.bg-everforest-green { background-color: var(--everforest-green); }
+.bg-everforest-aqua { background-color: var(--everforest-aqua); }
+.bg-everforest-blue { background-color: var(--everforest-blue); }
+.bg-everforest-purple { background-color: var(--everforest-purple); }
+
+/* Interactive states */
+.everforest-button {
+  background-color: var(--everforest-blue);
+  color: var(--everforest-bg);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.everforest-button:hover {
+  background-color: var(--everforest-aqua);
+  transform: translateY(-1px);
+}
+
+.everforest-button:active {
+  transform: translateY(0);
+}
+
+.everforest-button.secondary {
+  background-color: var(--everforest-bg1);
+  color: var(--everforest-fg);
+  border: 1px solid var(--everforest-gray2);
+}
+
+.everforest-button.secondary:hover {
+  background-color: var(--everforest-bg2);
+}
+
+/* Form elements */
+.everforest-input {
+  background-color: var(--everforest-bg1);
+  color: var(--everforest-fg);
+  border: 1px solid var(--everforest-gray2);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: border-color 0.2s ease;
+}
+
+.everforest-input:focus {
+  outline: none;
+  border-color: var(--everforest-blue);
+  box-shadow: 0 0 0 2px var(--everforest-blue)25;
+}
+
+.everforest-input::placeholder {
+  color: var(--everforest-gray2);
+}
+
+/* Code blocks */
+.everforest-code {
+  background-color: var(--everforest-bg1);
+  color: var(--everforest-fg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  overflow-x: auto;
+}
+
+.everforest-code-inline {
+  background-color: var(--everforest-bg1);
+  color: var(--everforest-orange);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  font-size: 0.875em;
+}
+
+/* Syntax highlighting for code */
+.everforest-code .keyword { color: var(--everforest-red); }
+.everforest-code .string { color: var(--everforest-green); }
+.everforest-code .number { color: var(--everforest-purple); }
+.everforest-code .comment { color: var(--everforest-gray2); font-style: italic; }
+.everforest-code .function { color: var(--everforest-blue); }
+.everforest-code .operator { color: var(--everforest-orange); }
+.everforest-code .type { color: var(--everforest-yellow); }
+.everforest-code .variable { color: var(--everforest-fg); }
+
+/* Alert/notification styles */
+.everforest-alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+  margin: 1rem 0;
+}
+
+.everforest-alert.info {
+  background-color: var(--everforest-blue)15;
+  border-left-color: var(--everforest-blue);
+  color: var(--everforest-fg);
+}
+
+.everforest-alert.success {
+  background-color: var(--everforest-green)15;
+  border-left-color: var(--everforest-green);
+  color: var(--everforest-fg);
+}
+
+.everforest-alert.warning {
+  background-color: var(--everforest-yellow)15;
+  border-left-color: var(--everforest-yellow);
+  color: var(--everforest-fg);
+}
+
+.everforest-alert.error {
+  background-color: var(--everforest-red)15;
+  border-left-color: var(--everforest-red);
+  color: var(--everforest-fg);
+}
+
+/* Links */
+.everforest a {
+  color: var(--everforest-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.everforest a:hover {
+  color: var(--everforest-aqua);
+  text-decoration: underline;
+}
+
+/* Selection */
+.everforest ::selection {
+  background-color: var(--everforest-bg2);
+  color: var(--everforest-fg);
+}
+
+/* Scrollbars (Webkit) */
+.everforest ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.everforest ::-webkit-scrollbar-track {
+  background: var(--everforest-bg);
+}
+
+.everforest ::-webkit-scrollbar-thumb {
+  background: var(--everforest-gray2);
+  border-radius: 4px;
+}
+
+.everforest ::-webkit-scrollbar-thumb:hover {
+  background: var(--everforest-gray3);
+}
+
+/* Media query for light/dark mode preference */
+@media (prefers-color-scheme: light) {
+  /* Light mode overrides would go here if needed */
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark mode overrides would go here if needed */
+}

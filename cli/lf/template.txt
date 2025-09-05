@@ -1,0 +1,12 @@
+# Everforest colors for lf file manager
+# Generated from template - do not edit manually
+
+# Use the same color scheme as LS_COLORS
+set color256 true
+set icons true
+
+# Colors based on file types (using ANSI codes)
+map <c-r> :source ~/.config/lf/lfrc
+
+# Set colors using environment variable
+$export LF_COLORS="di={{ansi_blue}}:fi={{ansi_white}}:ln={{ansi_aqua}}:pi={{ansi_yellow}}:so={{ansi_purple}}:bd={{ansi_yellow}};{{ansi_black}}:cd={{ansi_yellow}};{{ansi_black}}:or={{ansi_red}};{{ansi_black}}:mi={{ansi_red}};{{ansi_black}}:su={{ansi_white}};{{ansi_red}}:sg={{ansi_white}};{{ansi_yellow}}:ca={{ansi_white}};{{ansi_red}}:tw={{ansi_white}};{{ansi_blue}}:ow={{ansi_white}};{{ansi_blue}}:st={{ansi_white}};{{ansi_blue}}:ex={{ansi_green}}"

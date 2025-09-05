@@ -1,0 +1,75 @@
+# Everforest theme for btop++
+# Place this in ~/.config/btop/themes/everforest.theme
+
+# Main background and foreground
+theme[main_bg]="{{bg}}"
+theme[main_fg]="{{fg}}"
+
+# Highlight colors
+theme[hi_fg]="{{orange}}"
+
+# Title colors
+theme[title]="{{aqua}}"
+
+# Graph colors
+theme[graph_text]="{{gray2}}"
+
+# Meter colors
+theme[meter_bg]="{{bg1}}"
+
+# Process colors
+theme[proc_misc]="{{gray2}}"
+theme[proc_box]="{{bg1}}"
+theme[proc_start]="{{green}}"
+theme[proc_mid]="{{yellow}}"
+theme[proc_end]="{{red}}"
+
+# Active process
+theme[proc_selected]="{{aqua}}"
+
+# CPU colors
+theme[cpu_box]="{{bg1}}"
+theme[cpu_start]="{{blue}}"
+theme[cpu_mid]="{{aqua}}"
+theme[cpu_end]="{{purple}}"
+
+# Memory colors
+theme[mem_box]="{{bg1}}"
+theme[mem_start]="{{yellow}}"
+theme[mem_mid]="{{orange}}"
+theme[mem_end]="{{red}}"
+
+# Network colors
+theme[net_box]="{{bg1}}"
+theme[net_start]="{{green}}"
+theme[net_mid]="{{yellow}}"
+theme[net_end]="{{red}}"
+
+# Disk colors
+theme[div_line]="{{gray2}}"
+theme[temp_start]="{{green}}"
+theme[temp_mid]="{{yellow}}"
+theme[temp_end]="{{red}}"
+
+# GPU colors (if available)
+theme[gpu_start]="{{purple}}"
+theme[gpu_mid]="{{blue}}"
+theme[gpu_end]="{{aqua}}"
+
+# Input field
+theme[input_field]="{{bg1}}"
+
+# Status colors
+theme[inactive_fg]="{{gray2}}"
+theme[selected_bg]="{{red}}"
+theme[selected_fg]="{{bg}}"
+
+# Additional colors
+theme[symbol]="{{orange}}"
+theme[symbol_on]="{{green}}"
+theme[used_start]="{{green}}"
+theme[used_mid]="{{yellow}}"
+theme[used_end]="{{red}}"
+theme[available_start]="{{blue}}"
+theme[available_mid]="{{aqua}}"
+theme[available_end]="{{aqua}}"

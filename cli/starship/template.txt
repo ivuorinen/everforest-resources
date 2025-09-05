@@ -2,19 +2,19 @@
 # Generated from template - do not edit manually
 
 format = """
-[](#{{bg1}})\
+[]({{bg1}})\
 $username\
-[](bg:#{{bg2}} fg:#{{bg1}})\
+[](bg:{{bg2}} fg:{{bg1}})\
 $directory\
-[](fg:#{{bg2}} bg:#{{bg}})\
+[](fg:{{bg2}} bg:{{bg}})\
 $git_branch\
 $git_status\
-[](fg:#{{bg}} bg:#{{bg1}})\
+[](fg:{{bg}} bg:{{bg1}})\
 $nodejs\
 $rust\
 $golang\
 $php\
-[](fg:#{{bg1}})\
+[](fg:{{bg1}})\
 """
 
 # Disable the blank line at the start of the prompt
@@ -22,42 +22,42 @@ add_newline = false
 
 [username]
 show_always = true
-style_user = "bg:#{{bg1}} fg:#{{fg}}"
-style_root = "bg:#{{bg1}} fg:#{{red}}"
+style_user = "bg:{{bg1}} fg:{{fg}}"
+style_root = "bg:{{bg1}} fg:{{red}}"
 format = '[$user ]($style)'
 disabled = false
 
 [directory]
-style = "bg:#{{bg2}} fg:#{{blue}}"
+style = "bg:{{bg2}} fg:{{blue}}"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#{{bg}} fg:#{{green}}"
+style = "bg:{{bg}} fg:{{green}}"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#{{bg}} fg:#{{red}}"
+style = "bg:{{bg}} fg:{{red}}"
 format = '[$all_status$ahead_behind ]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#{{bg1}} fg:#{{yellow}}"
+style = "bg:{{bg1}} fg:{{yellow}}"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#{{bg1}} fg:#{{orange}}"
+style = "bg:{{bg1}} fg:{{orange}}"
 format = '[ $symbol ($version) ]($style)'
 
 [golang]
 symbol = ""
-style = "bg:#{{bg1}} fg:#{{aqua}}"
+style = "bg:{{bg1}} fg:{{aqua}}"
 format = '[ $symbol ($version) ]($style)'
 
 [php]
 symbol = ""
-style = "bg:#{{bg1}} fg:#{{purple}}"
+style = "bg:{{bg1}} fg:{{purple}}"
 format = '[ $symbol ($version) ]($style)'

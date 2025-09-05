@@ -1,0 +1,42 @@
+# Everforest theme for Glances
+# Generated from template - do not edit manually
+
+[colors]
+# Default colors
+default={{fg}}
+default_selected={{fg}}
+
+# Status colors
+OK={{green}}
+CAREFUL={{yellow}}
+WARNING={{orange}}
+CRITICAL={{red}}
+
+# Interface colors
+title={{blue}}
+help={{aqua}}
+status={{fg}}
+
+# Process colors
+process={{fg}}
+process_high={{red}}
+
+# Filesystem colors
+filesystem_used={{orange}}
+filesystem_free={{green}}
+
+# Network colors
+network_rx={{green}}
+network_tx={{blue}}
+
+# CPU colors
+cpu_user={{blue}}
+cpu_system={{red}}
+cpu_idle={{gray2}}
+cpu_iowait={{purple}}
+
+# Memory colors
+memory_used={{orange}}
+memory_free={{green}}
+memory_cached={{aqua}}
+memory_buffer={{yellow}}

@@ -1,0 +1,47 @@
+# Everforest theme for bottom (btm)
+# Place this in ~/.config/bottom/bottom.toml under [colors] section
+
+[colors]
+# Background colors
+table_header_color = "#d3c6aa"
+all_entry_color = "#d3c6aa"
+avg_entry_color = "#dbbc7f"
+cpu_entry_color = "#7fbbb3"
+memory_entry_color = "#a7c080"
+network_entry_color = "#d699b6"
+process_entry_color = "#83c092"
+temperature_entry_color = "#e67e80"
+disk_entry_color = "#e69875"
+
+# Widget colors
+border_color = "#859289"
+highlighted_border_color = "#83c092"
+text_color = "#d3c6aa"
+graph_color = "#7fbbb3"
+cursor_color = "#e69875"
+selected_text_color = "#2f383e"
+selected_bg_color = "#83c092"
+widget_title_color = "#d3c6aa"
+
+# High/medium/low colors for graphs
+high_battery_color = "#a7c080"
+medium_battery_color = "#dbbc7f"
+low_battery_color = "#e67e80"
+
+# CPU colors
+cpu_core_colors = ["#7fbbb3", "#83c092", "#d699b6", "#83c092", "#dbbc7f", "#e69875", "#a7c080", "#e67e80"]
+
+# RAM/Swap colors
+ram_color = "#a7c080"
+swap_color = "#e67e80"
+arc_color = "#dbbc7f"
+gpu_color = "#d699b6"
+
+# Network colors
+rx_color = "#a7c080"
+tx_color = "#e67e80"
+rx_total_color = "#7fbbb3"
+tx_total_color = "#e69875"
+
+# Process colors
+disabled_text_color = "#859289"

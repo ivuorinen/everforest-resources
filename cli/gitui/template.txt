@@ -1,0 +1,26 @@
+// Everforest theme for GitUI
+// Generated from template - do not edit manually
+
+(
+    selected_tab: "{{yellow}}",
+    command_fg: "{{fg}}",
+    selection_bg: "{{bg1}}",
+    selection_fg: "{{fg}}",
+    cmdbar_bg: "{{bg}}",
+    cmdbar_extra_lines_bg: "{{bg1}}",
+    disabled_fg: "{{gray2}}",
+    diff_line_add: "{{green}}",
+    diff_line_delete: "{{red}}",
+    diff_file_added: "{{green}}",
+    diff_file_removed: "{{red}}",
+    diff_file_moved: "{{purple}}",
+    diff_file_modified: "{{yellow}}",
+    commit_hash: "{{purple}}",
+    commit_time: "{{aqua}}",
+    commit_author: "{{orange}}",
+    danger_fg: "{{red}}",
+    push_gauge_bg: "{{blue}}",
+    push_gauge_fg: "{{bg}}",
+    tag_fg: "{{yellow}}",
+    branch_fg: "{{green}}"
+)

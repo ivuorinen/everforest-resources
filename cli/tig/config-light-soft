@@ -1,0 +1,40 @@
+# Everforest theme for tig
+# Generated from template - do not edit manually
+
+# Colors
+color default                   #5c6a72      #f0e5cf
+color cursor                    #5c6a72      #e9e1cc      bold
+color status                    #a7c080   #f0e5cf
+color delimiter                 #b3c0b0   #f0e5cf
+color date                      #83c092    #f0e5cf
+color mode                      #dbbc7f  #f0e5cf       bold
+color id                        #d699b6  #f0e5cf
+color overflow                  #e67e80     #f0e5cf
+color header                    #7fbbb3    #f0e5cf       bold
+color section                   #dbbc7f  #f0e5cf       bold
+color directory                 #7fbbb3    #f0e5cf
+color file                      #5c6a72      #f0e5cf
+color grep.file                 #7fbbb3    #f0e5cf
+color file-size                 #5c6a72      #f0e5cf
+color line-number               #b3c0b0   #f0e5cf
+color title-blur                #b3c0b0   #f0e5cf
+color title-focus               #b3c0b0   #f0e5cf       bold
+
+# Diff colors
+color diff-header               #dbbc7f  #f0e5cf
+color diff-index                #7fbbb3    #f0e5cf
+color diff-chunk                #d699b6  #f0e5cf
+color diff-add                  #a7c080   #f0e5cf
+color diff-del                  #e67e80     #f0e5cf
+color diff-add-highlight        #a7c080   #e9e1cc      bold
+color diff-del-highlight        #e67e80     #e9e1cc      bold
+
+# Graph colors
+color graph-commit              #e67e80     #f0e5cf
+color tree.head                 #dbbc7f  #f0e5cf       bold
+color tree.main                 #7fbbb3    #f0e5cf       bold
+color tree.merge                #d699b6  #f0e5cf       bold
+
+# Help colors
+color help-group                #7fbbb3    #f0e5cf
+color help-action               #dbbc7f  #f0e5cf

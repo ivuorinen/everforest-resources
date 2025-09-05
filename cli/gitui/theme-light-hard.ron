@@ -1,0 +1,26 @@
+// Everforest theme for GitUI
+// Generated from template - do not edit manually
+
+(
+    selected_tab: "#dbbc7f",
+    command_fg: "#5c6a72",
+    selection_bg: "#f4f0d9",
+    selection_fg: "#5c6a72",
+    cmdbar_bg: "#fdf6e3",
+    cmdbar_extra_lines_bg: "#f4f0d9",
+    disabled_fg: "#b3c0b0",
+    diff_line_add: "#a7c080",
+    diff_line_delete: "#e67e80",
+    diff_file_added: "#a7c080",
+    diff_file_removed: "#e67e80",
+    diff_file_moved: "#d699b6",
+    diff_file_modified: "#dbbc7f",
+    commit_hash: "#d699b6",
+    commit_time: "#83c092",
+    commit_author: "#e69875",
+    danger_fg: "#e67e80",
+    push_gauge_bg: "#7fbbb3",
+    push_gauge_fg: "#fdf6e3",
+    tag_fg: "#dbbc7f",
+    branch_fg: "#a7c080"
+)

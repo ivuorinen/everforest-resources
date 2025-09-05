@@ -1,0 +1,84 @@
+# Everforest skin for Midnight Commander
+# Generated from template - do not edit manually
+
+[skin]
+    description = Everforest theme for MC
+
+[Lines]
+    horiz = ─
+    vert = │
+    lefttop = ┌
+    righttop = ┐
+    leftbottom = └
+    rightbottom = ┘
+    topmiddle = ┬
+    bottommiddle = ┴
+    leftmiddle = ├
+    rightmiddle = ┤
+    cross = ┼
+    dhoriz = ═
+    dvert = ║
+    dlefttop = ╔
+    drighttop = ╗
+    dleftbottom = ╚
+    drightbottom = ╝
+    dtopmiddle = ╦
+    dbottommiddle = ╩
+    dleftmiddle = ╠
+    drightmiddle = ╣
+
+[core]
+    _default_ = {{fg}};{{bg}}
+    selected = {{fg}};{{bg1}}
+    marked = {{yellow}};{{bg}}
+    markselect = {{yellow}};{{bg1}}
+    gauge = {{green}};{{bg}}
+    input = {{fg}};{{bg1}}
+    inputmark = {{yellow}};{{bg1}}
+    inputunchanged = {{gray2}};{{bg1}}
+    commandlinemark = {{yellow}};{{bg}}
+    reverse = {{bg}};{{fg}}
+
+[dialog]
+    _default_ = {{fg}};{{bg1}}
+    dfocus = {{blue}};{{bg1}}
+    dhotnormal = {{red}};{{bg1}}
+    dhotfocus = {{red}};{{bg2}}
+
+[error]
+    _default_ = {{red}};{{bg}}
+    errdfocus = {{red}};{{bg1}}
+    errdhotnormal = {{yellow}};{{bg}}
+    errdhotfocus = {{yellow}};{{bg1}}
+
+[filehighlight]
+    directory = {{blue}};
+    executable = {{green}};
+    symlink = {{aqua}};
+    stalelink = {{red}};
+    device = {{purple}};
+    special = {{yellow}};
+    core = {{red}};
+    temp = {{gray2}};
+    archive = {{orange}};
+    doc = {{blue}};
+    source = {{green}};
+    media = {{purple}};
+    graph = {{aqua}};
+    database = {{yellow}};
+
+[menu]
+    _default_ = {{fg}};{{bg1}}
+    menuhot = {{red}};{{bg1}}
+    menusel = {{fg}};{{bg2}}
+    menuhotsel = {{red}};{{bg2}}
+    menuinactive = {{gray2}};{{bg1}}
+
+[popupmenu]
+    _default_ = {{fg}};{{bg1}}
+    menusel = {{fg}};{{bg2}}
+    menutitle = {{blue}};{{bg1}}
+
+[buttonbar]
+    hotkey = {{red}};{{bg}}
+    button = {{fg}};{{bg}}

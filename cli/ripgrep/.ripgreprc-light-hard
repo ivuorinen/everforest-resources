@@ -1,0 +1,33 @@
+# Everforest theme for ripgrep
+# Place this in ~/.ripgreprc or set RIPGREP_CONFIG_PATH
+
+# Color configuration using ANSI codes
+# Format: --colors=TYPE:STYLE:ANSICODE
+
+# Match highlighting - use bright green for matches
+--colors=match:fg:#a7c080
+--colors=match:style:bold
+
+# Line numbers - use gray for line numbers
+--colors=line:fg:#c0cdb8
+
+# File paths - use blue for file paths
+--colors=path:fg:#7fbbb3
+--colors=path:style:bold
+
+# Column numbers - use gray for column numbers
+--colors=column:fg:#c0cdb8
+
+# General ripgrep configuration
+--smart-case
+--hidden
+--follow
+--glob=!.git/*
+--glob=!node_modules/*
+--glob=!.vscode/*
+--glob=!.idea/*
+--max-columns=150
+--max-columns-preview
+
+# Show line numbers by default
+--line-number

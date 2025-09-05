@@ -1,0 +1,44 @@
+# Everforest colors for Fish shell
+# Generated from template - do not edit manually
+
+# Set fish colors
+set -g fish_color_normal {{fg}}
+set -g fish_color_command {{blue}}
+set -g fish_color_quote {{green}}
+set -g fish_color_redirection {{purple}}
+set -g fish_color_end {{orange}}
+set -g fish_color_error {{red}}
+set -g fish_color_param {{fg}}
+set -g fish_color_comment {{gray2}}
+set -g fish_color_match {{yellow}}
+set -g fish_color_selection {{fg}}
+set -g fish_color_search_match --background={{bg1}}
+set -g fish_color_history_current --bold
+set -g fish_color_operator {{orange}}
+set -g fish_color_escape {{aqua}}
+set -g fish_color_cwd {{blue}}
+set -g fish_color_cwd_root {{red}}
+set -g fish_color_valid_path --underline
+set -g fish_color_autosuggestion {{gray2}}
+set -g fish_color_user {{aqua}}
+set -g fish_color_host {{blue}}
+set -g fish_color_cancel --reverse
+
+# Set pager colors
+set -g fish_pager_color_completion {{fg}}
+set -g fish_pager_color_description {{yellow}}
+set -g fish_pager_color_prefix {{blue}}
+set -g fish_pager_color_progress {{gray2}}
+set -g fish_pager_color_selected_background --background={{bg1}}
+
+# Set git colors
+set -g __fish_git_prompt_showdirtystate 1
+set -g __fish_git_prompt_showstashstate 1
+set -g __fish_git_prompt_showuntrackedfiles 1
+set -g __fish_git_prompt_showupstream informative
+set -g __fish_git_prompt_color_branch {{green}}
+set -g __fish_git_prompt_color_upstream {{aqua}}
+set -g __fish_git_prompt_color_dirtystate {{red}}
+set -g __fish_git_prompt_color_stagedstate {{yellow}}
+set -g __fish_git_prompt_color_untrackedfiles {{purple}}
+set -g __fish_git_prompt_color_stashstate {{orange}}

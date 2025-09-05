@@ -1,0 +1,57 @@
+# Everforest theme for Zsh
+# Add this to your ~/.zshrc
+
+# Everforest color scheme for Zsh syntax highlighting and prompt
+# Requires zsh-syntax-highlighting plugin
+
+# Enable colors in terminal
+export CLICOLOR=1
+
+# Set LS_COLORS for directory listings (using ANSI codes)
+export LS_COLORS="di=01;{{ansi_blue}}:ln=01;{{ansi_aqua}}:so=01;{{ansi_purple}}:pi=40;{{ansi_purple}}:ex=01;{{ansi_red}}:bd=40;{{ansi_yellow}};01:cd=40;{{ansi_yellow}};01:su=37;41:sg=30;43:tw=30;{{ansi_blue}}:ow={{ansi_blue}};42:st=37;44:*.tar=01;{{ansi_orange}}:*.tgz=01;{{ansi_orange}}:*.arc=01;{{ansi_orange}}:*.arj=01;{{ansi_orange}}:*.taz=01;{{ansi_orange}}:*.lha=01;{{ansi_orange}}:*.lz4=01;{{ansi_orange}}:*.lzh=01;{{ansi_orange}}:*.lzma=01;{{ansi_orange}}:*.tlz=01;{{ansi_orange}}:*.txz=01;{{ansi_orange}}:*.tzo=01;{{ansi_orange}}:*.t7z=01;{{ansi_orange}}:*.zip=01;{{ansi_orange}}:*.z=01;{{ansi_orange}}:*.dz=01;{{ansi_orange}}:*.gz=01;{{ansi_orange}}:*.lrz=01;{{ansi_orange}}:*.lz=01;{{ansi_orange}}:*.lzo=01;{{ansi_orange}}:*.xz=01;{{ansi_orange}}:*.zst=01;{{ansi_orange}}:*.tzst=01;{{ansi_orange}}:*.bz2=01;{{ansi_orange}}:*.bz=01;{{ansi_orange}}:*.tbz=01;{{ansi_orange}}:*.tbz2=01;{{ansi_orange}}:*.tz=01;{{ansi_orange}}:*.deb=01;{{ansi_orange}}:*.rpm=01;{{ansi_orange}}:*.jar=01;{{ansi_orange}}:*.war=01;{{ansi_orange}}:*.ear=01;{{ansi_orange}}:*.sar=01;{{ansi_orange}}:*.rar=01;{{ansi_orange}}:*.alz=01;{{ansi_orange}}:*.ace=01;{{ansi_orange}}:*.zoo=01;{{ansi_orange}}:*.cpio=01;{{ansi_orange}}:*.7z=01;{{ansi_orange}}:*.rz=01;{{ansi_orange}}:*.cab=01;{{ansi_orange}}:*.jpg=01;{{ansi_purple}}:*.jpeg=01;{{ansi_purple}}:*.mjpg=01;{{ansi_purple}}:*.mjpeg=01;{{ansi_purple}}:*.gif=01;{{ansi_purple}}:*.bmp=01;{{ansi_purple}}:*.pbm=01;{{ansi_purple}}:*.pgm=01;{{ansi_purple}}:*.ppm=01;{{ansi_purple}}:*.tga=01;{{ansi_purple}}:*.xbm=01;{{ansi_purple}}:*.xpm=01;{{ansi_purple}}:*.tif=01;{{ansi_purple}}:*.tiff=01;{{ansi_purple}}:*.png=01;{{ansi_purple}}:*.svg=01;{{ansi_purple}}:*.svgz=01;{{ansi_purple}}:*.mng=01;{{ansi_purple}}:*.pcx=01;{{ansi_purple}}:*.mov=01;{{ansi_purple}}:*.mpg=01;{{ansi_purple}}:*.mpeg=01;{{ansi_purple}}:*.m2v=01;{{ansi_purple}}:*.mkv=01;{{ansi_purple}}:*.webm=01;{{ansi_purple}}:*.ogm=01;{{ansi_purple}}:*.mp4=01;{{ansi_purple}}:*.m4v=01;{{ansi_purple}}:*.mp4v=01;{{ansi_purple}}:*.vob=01;{{ansi_purple}}:*.qt=01;{{ansi_purple}}:*.nuv=01;{{ansi_purple}}:*.wmv=01;{{ansi_purple}}:*.asf=01;{{ansi_purple}}:*.rm=01;{{ansi_purple}}:*.rmvb=01;{{ansi_purple}}:*.flc=01;{{ansi_purple}}:*.avi=01;{{ansi_purple}}:*.fli=01;{{ansi_purple}}:*.flv=01;{{ansi_purple}}:*.gl=01;{{ansi_purple}}:*.dl=01;{{ansi_purple}}:*.xcf=01;{{ansi_purple}}:*.xwd=01;{{ansi_purple}}:*.yuv=01;{{ansi_purple}}:*.cgm=01;{{ansi_purple}}:*.emf=01;{{ansi_purple}}:*.ogv=01;{{ansi_purple}}:*.ogx=01;{{ansi_purple}}:*.aac=00;{{ansi_aqua}}:*.au=00;{{ansi_aqua}}:*.flac=00;{{ansi_aqua}}:*.m4a=00;{{ansi_aqua}}:*.mid=00;{{ansi_aqua}}:*.midi=00;{{ansi_aqua}}:*.mka=00;{{ansi_aqua}}:*.mp3=00;{{ansi_aqua}}:*.mpc=00;{{ansi_aqua}}:*.ogg=00;{{ansi_aqua}}:*.ra=00;{{ansi_aqua}}:*.wav=00;{{ansi_aqua}}:*.oga=00;{{ansi_aqua}}:*.opus=00;{{ansi_aqua}}:*.spx=00;{{ansi_aqua}}:*.xspf=00;{{ansi_aqua}}"
+
+# Zsh syntax highlighting colors (if using zsh-syntax-highlighting)
+if [[ -n "${ZSH_HIGHLIGHT_STYLES}" ]]; then
+    # Commands and builtins
+    ZSH_HIGHLIGHT_STYLES[command]='fg={{blue}}'
+    ZSH_HIGHLIGHT_STYLES[builtin]='fg={{blue}}'
+    ZSH_HIGHLIGHT_STYLES[alias]='fg={{blue}}'
+    ZSH_HIGHLIGHT_STYLES[function]='fg={{blue}}'
+
+    # Keywords
+    ZSH_HIGHLIGHT_STYLES[reserved-word]='fg={{red}}'
+
+    # Strings
+    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg={{green}}'
+    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg={{green}}'
+    ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg={{green}}'
+
+    # Variables
+    ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg={{aqua}}'
+    ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg={{aqua}}'
+    ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg={{aqua}}'
+
+    # Options and flags
+    ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg={{yellow}}'
+    ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg={{yellow}}'
+
+    # Paths
+    ZSH_HIGHLIGHT_STYLES[path]='fg={{fg}}'
+    ZSH_HIGHLIGHT_STYLES[path_pathseparator]='fg={{gray3}}'
+
+    # Comments
+    ZSH_HIGHLIGHT_STYLES[comment]='fg={{gray3}}'
+
+    # Errors
+    ZSH_HIGHLIGHT_STYLES[unknown-token]='fg={{red}}'
+
+    # Globbing
+    ZSH_HIGHLIGHT_STYLES[globbing]='fg={{purple}}'
+
+    # History expansion
+    ZSH_HIGHLIGHT_STYLES[history-expansion]='fg={{orange}}'
+fi
+
+# Simple Everforest prompt example
+# You can customize this further or use with prompt frameworks like Oh My Zsh
+PROMPT='%F{{{ansi_blue}}}%n%f@%F{{{ansi_green}}}%m%f:%F{{{ansi_yellow}}}%~%f%# '

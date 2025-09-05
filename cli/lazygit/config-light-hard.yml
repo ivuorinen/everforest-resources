@@ -1,0 +1,28 @@
+# Everforest theme for LazyGit
+# Generated from template - do not edit manually
+
+gui:
+  theme:
+    lightTheme: false
+    activeBorderColor:
+      - '#7fbbb3'
+      - bold
+    inactiveBorderColor:
+      - '#b3c0b0'
+    searchingActiveBorderColor:
+      - '#dbbc7f'
+      - bold
+    optionsTextColor:
+      - '#83c092'
+    selectedLineBgColor:
+      - '#f4f0d9'
+    selectedRangeBgColor:
+      - '#efebd4'
+    cherryPickedCommitBgColor:
+      - '#d699b6'
+    cherryPickedCommitFgColor:
+      - '#5c6a72'
+    unstagedChangesColor:
+      - '#e67e80'
+    defaultFgColor:
+      - '#5c6a72'

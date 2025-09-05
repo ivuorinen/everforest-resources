@@ -1,0 +1,7 @@
+# Everforest theme for fzf (fish shell)
+# Generated from template - do not edit manually
+
+set -gx FZF_DEFAULT_OPTS " \
+--color=bg+:#3a464c,bg:#323d43,spinner:#83c092,hl:#a7c080 \
+--color=fg:#d3c6aa,header:#a7c080,info:#dbbc7f,pointer:#83c092 \
+--color=marker:#83c092,fg+:#d3c6aa,prompt:#dbbc7f,hl+:#a7c080"

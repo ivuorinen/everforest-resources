@@ -2,6 +2,6 @@
 # Generated from template - do not edit manually
 
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#{{bg1}},bg:#{{bg}},spinner:#{{aqua}},hl:#{{green}} \
---color=fg:#{{fg}},header:#{{green}},info:#{{yellow}},pointer:#{{aqua}} \
---color=marker:#{{aqua}},fg+:#{{fg}},prompt:#{{yellow}},hl+:#{{green}}"
+--color=bg+:{{bg1}},bg:{{bg}},spinner:{{aqua}},hl:{{green}} \
+--color=fg:{{fg}},header:{{green}},info:{{yellow}},pointer:{{aqua}} \
+--color=marker:{{aqua}},fg+:{{fg}},prompt:{{yellow}},hl+:{{green}}"

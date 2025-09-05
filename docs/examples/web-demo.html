@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everforest Web Demo</title>
+    <link rel="stylesheet" href="../../web/css/everforest-dark-medium.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--everforest-bg1);
+            border: 1px solid var(--everforest-gray2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--everforest-gray2);
+            background: var(--everforest-bg1);
+            color: var(--everforest-fg);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            background: var(--everforest-bg2);
+            border-color: var(--everforest-blue);
+        }
+
+        .theme-btn.active {
+            background: var(--everforest-blue);
+            color: var(--everforest-bg);
+            border-color: var(--everforest-blue);
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .syntax-demo {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--everforest-green);
+        }
+
+        .stat-label {
+            color: var(--everforest-gray2);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="everforest">
+    <div class="container">
+        <header>
+            <h1 class="text-everforest-green">🌲 Everforest Theme Showcase</h1>
+            <p class="text-everforest-gray2">A comprehensive theme system for developers</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">240</div>
+                    <div class="stat-label">Generated Files</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">31</div>
+                    <div class="stat-label">Supported Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Theme Variants</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Generated</div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="text-everforest-blue">Theme Variants</h2>
+            <div class="theme-selector">
+                <button class="theme-btn active" data-theme="dark-medium">Dark Medium</button>
+                <button class="theme-btn" data-theme="dark-hard">Dark Hard</button>
+                <button class="theme-btn" data-theme="dark-soft">Dark Soft</button>
+                <button class="theme-btn" data-theme="light-medium">Light Medium</button>
+                <button class="theme-btn" data-theme="light-hard">Light Hard</button>
+                <button class="theme-btn" data-theme="light-soft">Light Soft</button>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-everforest-yellow">Color Palette</h2>
+            <div class="color-palette">
+                <div class="color-swatch" style="background: var(--everforest-bg); color: var(--everforest-fg)">bg</div>
+                <div class="color-swatch" style="background: var(--everforest-fg); color: var(--everforest-bg)">fg</div>
+                <div class="color-swatch" style="background: var(--everforest-red); color: var(--everforest-bg)">red</div>
+                <div class="color-swatch" style="background: var(--everforest-orange); color: var(--everforest-bg)">orange</div>
+                <div class="color-swatch" style="background: var(--everforest-yellow); color: var(--everforest-bg)">yellow</div>
+                <div class="color-swatch" style="background: var(--everforest-green); color: var(--everforest-bg)">green</div>
+                <div class="color-swatch" style="background: var(--everforest-aqua); color: var(--everforest-bg)">aqua</div>
+                <div class="color-swatch" style="background: var(--everforest-blue); color: var(--everforest-bg)">blue</div>
+                <div class="color-swatch" style="background: var(--everforest-purple); color: var(--everforest-bg)">purple</div>
+            </div>
+        </section>
+
+        <div class="grid">
+            <div class="card">
+                <h3 class="text-everforest-red">Terminal Emulators</h3>
+                <ul>
+                    <li>🖥️ Alacritty</li>
+                    <li>🐱 Kitty</li>
+                    <li>🚀 WezTerm</li>
+                    <li>🪟 Windows Terminal</li>
+                    <li>👻 Ghostty</li>
+                </ul>
+                <button class="everforest-button">View Configs</button>
+            </div>
+
+            <div class="card">
+                <h3 class="text-everforest-green">Code Editors</h3>
+                <ul>
+                    <li>⚡ Neovim/Vim</li>
+                    <li>📝 VS Code</li>
+                    <li>🧠 JetBrains IDEs</li>
+                    <li>⚡ Zed</li>
+                    <li>🎨 Sublime Text</li>
+                </ul>
+                <button class="everforest-button">View Themes</button>
+            </div>
+
+            <div class="card">
+                <h3 class="text-everforest-blue">CLI Tools</h3>
+                <ul>
+                    <li>⭐ Starship</li>
+                    <li>🔍 FZF</li>
+                    <li>📊 htop/btop</li>
+                    <li>🌊 Delta</li>
+                    <li>🗂️ eza/ls</li>
+                    <li>🔎 ripgrep</li>
+                    <li>+ 20 more tools</li>
+                </ul>
+                <button class="everforest-button">View Tools</button>
+            </div>
+
+            <div class="card">
+                <h3 class="text-everforest-yellow">Web Development</h3>
+                <p>Complete CSS framework with utilities and components.</p>
+                <div class="everforest-code-inline">var(--everforest-blue)</div>
+                <p>Ready-to-use color variables and utility classes.</p>
+                <button class="everforest-button">View CSS</button>
+            </div>
+        </div>
+
+        <section>
+            <h2 class="text-everforest-purple">Syntax Highlighting Demo</h2>
+            <div class="card">
+                <div class="everforest-code syntax-demo">
+<span class="comment">// Everforest syntax highlighting example</span>
+<span class="keyword">import</span> { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">interface</span> <span class="type">User</span> {
+  <span class="variable">id</span>: <span class="type">number</span>;
+  <span class="variable">name</span>: <span class="type">string</span>;
+  <span class="variable">email</span>: <span class="type">string</span>;
+}
+
+<span class="keyword">const</span> <span class="function">UserProfile</span> = ({ <span class="variable">userId</span> }: { <span class="variable">userId</span>: <span class="type">number</span> }) => {
+  <span class="keyword">const</span> [<span class="variable">user</span>, <span class="variable">setUser</span>] = useState&lt;<span class="type">User</span> | <span class="keyword">null</span>&gt;(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [<span class="variable">loading</span>, <span class="variable">setLoading</span>] = useState(<span class="keyword">true</span>);
+
+  useEffect(() => {
+    <span class="function">fetchUser</span>(<span class="variable">userId</span>)
+      .then(<span class="variable">setUser</span>)
+      .finally(() => <span class="function">setLoading</span>(<span class="keyword">false</span>));
+  }, [<span class="variable">userId</span>]);
+
+  <span class="keyword">return</span> (
+    &lt;<span class="keyword">div</span> <span class="variable">className</span>=<span class="string">"everforest"</span>&gt;
+      {<span class="variable">loading</span> ? <span class="string">'Loading...'</span> : <span class="variable">user</span>?.name}
+    &lt;/<span class="keyword">div</span>&gt;
+  );
+};
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-everforest-orange">Interactive Components</h2>
+            <div class="grid">
+                <div class="card">
+                    <h4>Form Elements</h4>
+                    <input type="text" class="everforest-input" placeholder="Enter your name" style="width: 100%; margin-bottom: 1rem;">
+                    <button class="everforest-button">Primary Button</button>
+                    <button class="everforest-button secondary">Secondary</button>
+                </div>
+
+                <div class="card">
+                    <h4>Alerts</h4>
+                    <div class="everforest-alert info">ℹ️ Information alert</div>
+                    <div class="everforest-alert success">✅ Success message</div>
+                    <div class="everforest-alert warning">⚠️ Warning notice</div>
+                    <div class="everforest-alert error">❌ Error message</div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--everforest-gray2); text-align: center;">
+            <p class="text-everforest-gray2">
+                Generated with ❤️ by the Everforest Theme System<br>
+                <a href="https://github.com/ivuorinen/everforest-resources" class="text-everforest-blue">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme switcher (demo only - would require actual CSS switching in real implementation)
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // In a real implementation, you would load the corresponding CSS file
+                console.log(`Switching to theme: ${btn.dataset.theme}`);
+            });
+        });
+
+        // Color swatch click to copy
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                const colorName = swatch.textContent;
+                const computedStyle = getComputedStyle(swatch);
+                const bgColor = computedStyle.backgroundColor;
+
+                navigator.clipboard.writeText(`var(--everforest-${colorName})`).then(() => {
+                    console.log(`Copied: var(--everforest-${colorName})`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

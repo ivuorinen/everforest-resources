@@ -1,0 +1,29 @@
+# Everforest theme for Atuin
+# Generated from template - do not edit manually
+
+[colors]
+background = "{{bg}}"
+foreground = "{{fg}}"
+cursor = "{{yellow}}"
+selection_background = "{{bg1}}"
+selection_foreground = "{{fg}}"
+
+[colors.normal]
+black = "{{ansi_black}}"
+red = "{{ansi_red}}"
+green = "{{ansi_green}}"
+yellow = "{{ansi_yellow}}"
+blue = "{{ansi_blue}}"
+magenta = "{{ansi_purple}}"
+cyan = "{{ansi_aqua}}"
+white = "{{ansi_white}}"
+
+[colors.bright]
+black = "{{ansi_bright_black}}"
+red = "{{ansi_bright_red}}"
+green = "{{ansi_bright_green}}"
+yellow = "{{ansi_bright_yellow}}"
+blue = "{{ansi_bright_blue}}"
+magenta = "{{ansi_bright_purple}}"
+cyan = "{{ansi_bright_aqua}}"
+white = "{{ansi_bright_white}}"

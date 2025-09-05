@@ -1,0 +1,72 @@
+# Everforest theme for eza (fish shell)
+# Add these environment variables to your fish config (e.g., ~/.config/fish/config.fish)
+
+# Everforest color definitions for eza
+set -gx EZA_COLORS "\
+di={{blue}}:\
+ex={{red}}:\
+fi={{fg}}:\
+ln={{aqua}}:\
+or={{red}}:\
+ow={{blue}}:\
+pi={{purple}}:\
+so={{orange}}:\
+bd={{yellow}}:\
+cd={{yellow}}:\
+su={{red}}:\
+sg={{red}}:\
+tw={{blue}}:\
+st={{gray3}}:\
+*.tar={{orange}}:\
+*.zip={{orange}}:\
+*.7z={{orange}}:\
+*.gz={{orange}}:\
+*.bz2={{orange}}:\
+*.xz={{orange}}:\
+*.jpg={{purple}}:\
+*.jpeg={{purple}}:\
+*.png={{purple}}:\
+*.gif={{purple}}:\
+*.svg={{purple}}:\
+*.pdf={{green}}:\
+*.txt={{fg}}:\
+*.md={{green}}:\
+*.json={{yellow}}:\
+*.yml={{yellow}}:\
+*.yaml={{yellow}}:\
+*.xml={{yellow}}:\
+*.toml={{yellow}}:\
+*.ini={{yellow}}:\
+*.cfg={{yellow}}:\
+*.conf={{yellow}}:\
+*.log={{gray3}}:\
+*.tmp={{gray3}}:\
+*.bak={{gray3}}:\
+*.swp={{gray3}}:\
+*.lock={{gray3}}:\
+*.js={{yellow}}:\
+*.ts={{blue}}:\
+*.jsx={{blue}}:\
+*.tsx={{blue}}:\
+*.py={{blue}}:\
+*.rb={{red}}:\
+*.go={{aqua}}:\
+*.rs={{orange}}:\
+*.c={{blue}}:\
+*.cpp={{blue}}:\
+*.h={{purple}}:\
+*.hpp={{purple}}:\
+*.java={{orange}}:\
+*.class={{orange}}:\
+*.sh={{green}}:\
+*.bash={{green}}:\
+*.zsh={{green}}:\
+*.fish={{green}}:\
+*.vim={{green}}:\
+*.nvim={{green}}"
+
+# Alternative aliases for eza with color support
+alias ls='eza --color=always --group-directories-first'
+alias ll='eza --color=always --group-directories-first --long'
+alias la='eza --color=always --group-directories-first --long --all'
+alias lt='eza --color=always --group-directories-first --tree'

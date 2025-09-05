@@ -1,0 +1,214 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
+  "name": "Everforest",
+  "appearance": "dark",
+  "author": "Generated from template",
+  "style": {
+    "border": "{{gray2}}",
+    "border.variant": "{{gray1}}",
+    "border.focused": "{{blue}}",
+    "border.selected": "{{blue}}",
+    "border.transparent": "{{bg}}",
+    "border.disabled": "{{gray2}}",
+    "elevated_surface.background": "{{bg1}}",
+    "surface.background": "{{bg}}",
+    "background": "{{bg}}",
+    "element.background": "{{bg1}}",
+    "element.hover": "{{bg2}}",
+    "element.active": "{{bg2}}",
+    "element.selected": "{{bg2}}",
+    "element.disabled": "{{gray2}}",
+    "drop_target.background": "{{blue}}",
+    "ghost_element.background": "{{bg1}}",
+    "ghost_element.hover": "{{bg2}}",
+    "ghost_element.active": "{{bg2}}",
+    "ghost_element.selected": "{{bg2}}",
+    "ghost_element.disabled": "{{gray2}}",
+    "text": "{{fg}}",
+    "text.muted": "{{gray2}}",
+    "text.placeholder": "{{gray2}}",
+    "text.disabled": "{{gray2}}",
+    "text.accent": "{{blue}}",
+    "icon": "{{fg}}",
+    "icon.muted": "{{gray2}}",
+    "icon.disabled": "{{gray2}}",
+    "icon.placeholder": "{{gray2}}",
+    "icon.accent": "{{blue}}",
+    "status_bar.background": "{{bg1}}",
+    "title_bar.background": "{{bg}}",
+    "toolbar.background": "{{bg1}}",
+    "tab_bar.background": "{{bg1}}",
+    "tab.inactive_background": "{{bg1}}",
+    "tab.active_background": "{{bg}}",
+    "search.match_background": "{{yellow}}",
+    "panel.background": "{{bg1}}",
+    "panel.focused_border": "{{blue}}",
+    "pane.focused_border": "{{blue}}",
+    "scrollbar.thumb.background": "{{gray2}}",
+    "scrollbar.thumb.hover_background": "{{gray3}}",
+    "scrollbar.thumb.border": "{{gray1}}",
+    "scrollbar.track.background": "{{bg}}",
+    "scrollbar.track.border": "{{gray1}}",
+    "editor.foreground": "{{fg}}",
+    "editor.background": "{{bg}}",
+    "editor.gutter.background": "{{bg}}",
+    "editor.subheader.background": "{{bg1}}",
+    "editor.active_line.background": "{{bg1}}",
+    "editor.highlighted_line.background": "{{bg1}}",
+    "editor.line_number": "{{gray2}}",
+    "editor.active_line_number": "{{yellow}}",
+    "editor.invisible": "{{gray2}}",
+    "editor.wrap_guide": "{{gray2}}",
+    "editor.active_wrap_guide": "{{gray3}}",
+    "editor.document_highlight.read_background": "{{bg1}}",
+    "editor.document_highlight.write_background": "{{bg2}}",
+    "terminal.background": "{{bg}}",
+    "terminal.foreground": "{{fg}}",
+    "terminal.bright_foreground": "{{fg}}",
+    "terminal.dim_foreground": "{{gray2}}",
+    "terminal.ansi.black": "{{bg}}",
+    "terminal.ansi.red": "{{red}}",
+    "terminal.ansi.green": "{{green}}",
+    "terminal.ansi.yellow": "{{yellow}}",
+    "terminal.ansi.blue": "{{blue}}",
+    "terminal.ansi.magenta": "{{purple}}",
+    "terminal.ansi.cyan": "{{aqua}}",
+    "terminal.ansi.white": "{{fg}}",
+    "terminal.ansi.bright_black": "{{gray1}}",
+    "terminal.ansi.bright_red": "{{red}}",
+    "terminal.ansi.bright_green": "{{green}}",
+    "terminal.ansi.bright_yellow": "{{yellow}}",
+    "terminal.ansi.bright_blue": "{{blue}}",
+    "terminal.ansi.bright_magenta": "{{purple}}",
+    "terminal.ansi.bright_cyan": "{{aqua}}",
+    "terminal.ansi.bright_white": "{{fg}}",
+    "link_text.hover": "{{blue}}"
+  },
+  "syntax": {
+    "attribute": {
+      "color": "{{orange}}"
+    },
+    "boolean": {
+      "color": "{{purple}}"
+    },
+    "comment": {
+      "color": "{{gray2}}",
+      "font_style": "italic"
+    },
+    "comment.doc": {
+      "color": "{{gray2}}",
+      "font_style": "italic"
+    },
+    "constant": {
+      "color": "{{purple}}"
+    },
+    "constructor": {
+      "color": "{{yellow}}"
+    },
+    "embedded": {
+      "color": "{{fg}}"
+    },
+    "emphasis": {
+      "color": "{{blue}}",
+      "font_style": "italic"
+    },
+    "emphasis.strong": {
+      "color": "{{blue}}",
+      "font_weight": 700
+    },
+    "enum": {
+      "color": "{{yellow}}"
+    },
+    "function": {
+      "color": "{{green}}"
+    },
+    "hint": {
+      "color": "{{aqua}}",
+      "font_weight": 700
+    },
+    "keyword": {
+      "color": "{{red}}"
+    },
+    "label": {
+      "color": "{{orange}}"
+    },
+    "link_text": {
+      "color": "{{blue}}",
+      "font_style": "italic"
+    },
+    "link_uri": {
+      "color": "{{aqua}}"
+    },
+    "number": {
+      "color": "{{purple}}"
+    },
+    "operator": {
+      "color": "{{orange}}"
+    },
+    "predictive": {
+      "color": "{{gray2}}",
+      "font_style": "italic"
+    },
+    "preproc": {
+      "color": "{{aqua}}"
+    },
+    "primary": {
+      "color": "{{fg}}"
+    },
+    "property": {
+      "color": "{{blue}}"
+    },
+    "punctuation": {
+      "color": "{{fg}}"
+    },
+    "punctuation.bracket": {
+      "color": "{{fg}}"
+    },
+    "punctuation.delimiter": {
+      "color": "{{fg}}"
+    },
+    "punctuation.list_marker": {
+      "color": "{{orange}}"
+    },
+    "punctuation.special": {
+      "color": "{{orange}}"
+    },
+    "string": {
+      "color": "{{green}}"
+    },
+    "string.escape": {
+      "color": "{{aqua}}"
+    },
+    "string.regex": {
+      "color": "{{aqua}}"
+    },
+    "string.special": {
+      "color": "{{orange}}"
+    },
+    "string.special.symbol": {
+      "color": "{{orange}}"
+    },
+    "tag": {
+      "color": "{{red}}"
+    },
+    "text.literal": {
+      "color": "{{green}}"
+    },
+    "title": {
+      "color": "{{blue}}",
+      "font_weight": 700
+    },
+    "type": {
+      "color": "{{yellow}}"
+    },
+    "variable": {
+      "color": "{{fg}}"
+    },
+    "variable.special": {
+      "color": "{{orange}}"
+    },
+    "variant": {
+      "color": "{{aqua}}"
+    }
+  }
+}

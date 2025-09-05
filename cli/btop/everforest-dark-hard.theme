@@ -1,0 +1,75 @@
+# Everforest theme for btop++
+# Place this in ~/.config/btop/themes/everforest.theme
+
+# Main background and foreground
+theme[main_bg]="#2b3339"
+theme[main_fg]="#d3c6aa"
+
+# Highlight colors
+theme[hi_fg]="#e69875"
+
+# Title colors
+theme[title]="#83c092"
+
+# Graph colors
+theme[graph_text]="#859289"
+
+# Meter colors
+theme[meter_bg]="#323c41"
+
+# Process colors
+theme[proc_misc]="#859289"
+theme[proc_box]="#323c41"
+theme[proc_start]="#a7c080"
+theme[proc_mid]="#dbbc7f"
+theme[proc_end]="#e67e80"
+
+# Active process
+theme[proc_selected]="#83c092"
+
+# CPU colors
+theme[cpu_box]="#323c41"
+theme[cpu_start]="#7fbbb3"
+theme[cpu_mid]="#83c092"
+theme[cpu_end]="#d699b6"
+
+# Memory colors
+theme[mem_box]="#323c41"
+theme[mem_start]="#dbbc7f"
+theme[mem_mid]="#e69875"
+theme[mem_end]="#e67e80"
+
+# Network colors
+theme[net_box]="#323c41"
+theme[net_start]="#a7c080"
+theme[net_mid]="#dbbc7f"
+theme[net_end]="#e67e80"
+
+# Disk colors
+theme[div_line]="#859289"
+theme[temp_start]="#a7c080"
+theme[temp_mid]="#dbbc7f"
+theme[temp_end]="#e67e80"
+
+# GPU colors (if available)
+theme[gpu_start]="#d699b6"
+theme[gpu_mid]="#7fbbb3"
+theme[gpu_end]="#83c092"
+
+# Input field
+theme[input_field]="#323c41"
+
+# Status colors
+theme[inactive_fg]="#859289"
+theme[selected_bg]="#e67e80"
+theme[selected_fg]="#2b3339"
+
+# Additional colors
+theme[symbol]="#e69875"
+theme[symbol_on]="#a7c080"
+theme[used_start]="#a7c080"
+theme[used_mid]="#dbbc7f"
+theme[used_end]="#e67e80"
+theme[available_start]="#7fbbb3"
+theme[available_mid]="#83c092"
+theme[available_end]="#83c092"

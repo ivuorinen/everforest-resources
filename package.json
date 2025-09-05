@@ -10,9 +10,18 @@
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
     "format": "biome format . --write",
-    "ci": "npm run lint && npm run generate && npm run validate && npm run snapshots",
-    "snapshots": "playwright test",
-    "prepare": "husky install"
+    "ci": "npm run lint && npm run generate && npm run validate && npm run test:e2e",
+    "test": "npm run test:e2e",
+    "test:e2e": "npx --yes playwright install --with-deps && playwright test",
+    "demo": "python3 -m http.server 3000",
+    "demo:open": "npm run demo & sleep 2 && open http://localhost:3000/docs/examples/web-demo.html",
+    "install:themes": "./install.sh",
+    "install:dry": "./install.sh --dry-run",
+    "build": "npm run generate && npm run validate",
+    "dev": "npm run generate && npm run demo",
+    "prepare": "husky install",
+    "release": "npm run ci && git tag v$(node -p \"require('./package.json').version\")",
+    "stats": "echo 'Generated files:' && find . -name '*-dark-*' -o -name '*-light-*' | wc -l && echo 'Templates:' && find . -name 'template.*' | wc -l"
   },
   "keywords": [
     "everforest",
@@ -20,9 +29,16 @@
     "color-scheme",
     "terminal",
     "editor",
-    "cli"
+    "cli",
+    "colorscheme",
+    "dark-theme",
+    "light-theme",
+    "developer-tools"
   ],
-  "author": "ivuorinen",
+  "author": {
+    "name": "ivuorinen",
+    "url": "https://github.com/ivuorinen"
+  },
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "^2.2.3",
@@ -38,5 +54,21 @@
   "bugs": {
     "url": "https://github.com/ivuorinen/everforest-resources/issues"
   },
-  "homepage": "https://github.com/ivuorinen/everforest-resources#readme"
+  "homepage": "https://github.com/ivuorinen/everforest-resources#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "terminals/",
+    "editors/",
+    "cli/",
+    "web/",
+    "scripts/",
+    "palettes/",
+    "docs/",
+    "install.sh",
+    "README.md",
+    "LICENSE"
+  ]
 }

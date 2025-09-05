@@ -20,6 +20,25 @@
     "blue": "#7fbbb3",
     "purple": "#d699b6"
   },
+  "ansi": {
+    "red": "1",
+    "orange": "9",
+    "yellow": "3",
+    "green": "2",
+    "aqua": "6",
+    "blue": "4",
+    "purple": "5",
+    "black": "0",
+    "white": "7",
+    "bright_black": "8",
+    "bright_red": "9",
+    "bright_green": "10",
+    "bright_yellow": "11",
+    "bright_blue": "12",
+    "bright_purple": "13",
+    "bright_aqua": "14",
+    "bright_white": "15"
+  },
   "grays": {
     "dark": { "gray1": "#7a8478", "gray2": "#859289", "gray3": "#9da9a0" },
     "light": { "gray1": "#a6b0a0", "gray2": "#b3c0b0", "gray3": "#c0cdb8" }

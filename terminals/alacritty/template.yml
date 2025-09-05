@@ -1,0 +1,89 @@
+# Everforest theme for Alacritty
+# Generated from template - do not edit manually
+
+colors:
+  # Default colors
+  primary:
+    background: "{{bg}}"
+    foreground: "{{fg}}"
+    dim_foreground: "{{gray2}}"
+    bright_foreground: "{{fg}}"
+
+  # Cursor colors
+  cursor:
+    text: "{{bg}}"
+    cursor: "{{fg}}"
+
+  # Vi mode cursor colors
+  vi_mode_cursor:
+    text: "{{bg}}"
+    cursor: "{{fg}}"
+
+  # Selection colors
+  selection:
+    text: CellForeground
+    background: "{{bg1}}"
+
+  # Search colors
+  search:
+    matches:
+      foreground: "{{bg}}"
+      background: "{{yellow}}"
+    focused_match:
+      foreground: "{{bg}}"
+      background: "{{orange}}"
+    bar:
+      foreground: "{{fg}}"
+      background: "{{bg1}}"
+
+  # Keyboard regex hints
+  hints:
+    start:
+      foreground: "{{bg}}"
+      background: "{{yellow}}"
+    end:
+      foreground: "{{bg}}"
+      background: "{{orange}}"
+
+  # Line indicator
+  line_indicator:
+    foreground: None
+    background: None
+
+  # Normal colors
+  normal:
+    black:   "{{bg}}"
+    red:     "{{red}}"
+    green:   "{{green}}"
+    yellow:  "{{yellow}}"
+    blue:    "{{blue}}"
+    magenta: "{{purple}}"
+    cyan:    "{{aqua}}"
+    white:   "{{fg}}"
+
+  # Bright colors
+  bright:
+    black:   "{{gray1}}"
+    red:     "{{red}}"
+    green:   "{{green}}"
+    yellow:  "{{yellow}}"
+    blue:    "{{blue}}"
+    magenta: "{{purple}}"
+    cyan:    "{{aqua}}"
+    white:   "{{fg}}"
+
+  # Dim colors
+  dim:
+    black:   "{{bg}}"
+    red:     "{{red}}"
+    green:   "{{green}}"
+    yellow:  "{{yellow}}"
+    blue:    "{{blue}}"
+    magenta: "{{purple}}"
+    cyan:    "{{aqua}}"
+    white:   "{{gray2}}"
+
+  # Indexed Colors
+  indexed_colors:
+    - { index: 16, color: "{{orange}}" }
+    - { index: 17, color: "{{red}}" }

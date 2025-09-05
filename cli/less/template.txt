@@ -1,0 +1,12 @@
+# Everforest colors for less pager
+# Generated from template - do not edit manually
+# Source this in your shell configuration
+
+# Less termcap colors
+export LESS_TERMCAP_mb=$'\e[1;{{ansi_red}}m'     # Begin blinking
+export LESS_TERMCAP_md=$'\e[1;{{ansi_blue}}m'    # Begin bold
+export LESS_TERMCAP_me=$'\e[0m'                  # End mode
+export LESS_TERMCAP_se=$'\e[0m'                  # End standout-mode
+export LESS_TERMCAP_so=$'\e[{{ansi_yellow}};{{ansi_black}}m'  # Begin standout-mode
+export LESS_TERMCAP_ue=$'\e[0m'                  # End underline
+export LESS_TERMCAP_us=$'\e[4;{{ansi_green}}m'   # Begin underline

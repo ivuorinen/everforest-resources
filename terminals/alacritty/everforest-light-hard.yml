@@ -1,0 +1,89 @@
+# Everforest theme for Alacritty
+# Generated from template - do not edit manually
+
+colors:
+  # Default colors
+  primary:
+    background: "#fdf6e3"
+    foreground: "#5c6a72"
+    dim_foreground: "#b3c0b0"
+    bright_foreground: "#5c6a72"
+
+  # Cursor colors
+  cursor:
+    text: "#fdf6e3"
+    cursor: "#5c6a72"
+
+  # Vi mode cursor colors
+  vi_mode_cursor:
+    text: "#fdf6e3"
+    cursor: "#5c6a72"
+
+  # Selection colors
+  selection:
+    text: CellForeground
+    background: "#f4f0d9"
+
+  # Search colors
+  search:
+    matches:
+      foreground: "#fdf6e3"
+      background: "#dbbc7f"
+    focused_match:
+      foreground: "#fdf6e3"
+      background: "#e69875"
+    bar:
+      foreground: "#5c6a72"
+      background: "#f4f0d9"
+
+  # Keyboard regex hints
+  hints:
+    start:
+      foreground: "#fdf6e3"
+      background: "#dbbc7f"
+    end:
+      foreground: "#fdf6e3"
+      background: "#e69875"
+
+  # Line indicator
+  line_indicator:
+    foreground: None
+    background: None
+
+  # Normal colors
+  normal:
+    black:   "#fdf6e3"
+    red:     "#e67e80"
+    green:   "#a7c080"
+    yellow:  "#dbbc7f"
+    blue:    "#7fbbb3"
+    magenta: "#d699b6"
+    cyan:    "#83c092"
+    white:   "#5c6a72"
+
+  # Bright colors
+  bright:
+    black:   "#a6b0a0"
+    red:     "#e67e80"
+    green:   "#a7c080"
+    yellow:  "#dbbc7f"
+    blue:    "#7fbbb3"
+    magenta: "#d699b6"
+    cyan:    "#83c092"
+    white:   "#5c6a72"
+
+  # Dim colors
+  dim:
+    black:   "#fdf6e3"
+    red:     "#e67e80"
+    green:   "#a7c080"
+    yellow:  "#dbbc7f"
+    blue:    "#7fbbb3"
+    magenta: "#d699b6"
+    cyan:    "#83c092"
+    white:   "#b3c0b0"
+
+  # Indexed Colors
+  indexed_colors:
+    - { index: 16, color: "#e69875" }
+    - { index: 17, color: "#e67e80" }

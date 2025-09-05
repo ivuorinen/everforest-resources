@@ -1,0 +1,191 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  lint:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Biome linting
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format -- --check
+
+  generate:
+    name: Generate Themes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate themes
+        run: npm run generate
+
+      - name: Validate generated themes
+        run: npm run validate
+
+      - name: Check for uncommitted changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "❌ Generated files are not up to date!"
+            echo "Please run 'npm run generate' and commit the changes."
+            git status --porcelain
+            exit 1
+          fi
+          echo "✅ All generated files are up to date"
+
+  test:
+    name: Test Web Components
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  verify-installation:
+    name: Verify Installation Scripts
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate themes
+        run: npm run generate
+
+      - name: Test installation script (dry run)
+        run: ./install.sh --dry-run
+
+      - name: Test variant switching
+        run: |
+          ./install.sh --dry-run --variant dark-hard
+          ./install.sh --dry-run --variant light-medium
+
+      - name: Test category installation
+        run: |
+          ./install.sh --dry-run terminals
+          ./install.sh --dry-run cli
+          ./install.sh --dry-run editors
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  build-stats:
+    name: Build Statistics
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate themes
+        run: npm run generate
+
+      - name: Calculate statistics
+        run: |
+          echo "## 📊 Build Statistics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Count generated files
+          TOTAL_FILES=$(find . -name "*-dark-*" -o -name "*-light-*" | wc -l)
+          echo "- **Generated files**: $TOTAL_FILES" >> $GITHUB_STEP_SUMMARY
+
+          # Count templates
+          TEMPLATES=$(find . -name "template.*" | wc -l)
+          echo "- **Templates**: $TEMPLATES" >> $GITHUB_STEP_SUMMARY
+
+          # Count tools
+          CLI_TOOLS=$(ls -1 cli/ | grep -v install.sh | wc -l)
+          TERMINALS=$(ls -1 terminals/ | wc -l)
+          EDITORS=$(ls -1 editors/ | wc -l)
+
+          echo "- **CLI tools**: $CLI_TOOLS" >> $GITHUB_STEP_SUMMARY
+          echo "- **Terminals**: $TERMINALS" >> $GITHUB_STEP_SUMMARY
+          echo "- **Editors**: $EDITORS" >> $GITHUB_STEP_SUMMARY
+
+          # File sizes
+          TOTAL_SIZE=$(du -sh . | cut -f1)
+          echo "- **Total size**: $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY

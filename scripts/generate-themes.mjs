@@ -69,6 +69,7 @@ class EverforestGenerator {
     const variantColors = this.palette.variants[variant][contrast];
     const accentColors = this.palette.accents;
     const grayColors = this.palette.grays[variant];
+    const ansiColors = this.palette.ansi;
 
     return {
       bg: variantColors.bg,
@@ -85,6 +86,24 @@ class EverforestGenerator {
       gray1: grayColors.gray1,
       gray2: grayColors.gray2,
       gray3: grayColors.gray3,
+      // ANSI color codes for CLI tools
+      ansi_red: ansiColors.red,
+      ansi_orange: ansiColors.orange,
+      ansi_yellow: ansiColors.yellow,
+      ansi_green: ansiColors.green,
+      ansi_aqua: ansiColors.aqua,
+      ansi_blue: ansiColors.blue,
+      ansi_purple: ansiColors.purple,
+      ansi_black: ansiColors.black,
+      ansi_white: ansiColors.white,
+      ansi_bright_black: ansiColors.bright_black,
+      ansi_bright_red: ansiColors.bright_red,
+      ansi_bright_green: ansiColors.bright_green,
+      ansi_bright_yellow: ansiColors.bright_yellow,
+      ansi_bright_blue: ansiColors.bright_blue,
+      ansi_bright_purple: ansiColors.bright_purple,
+      ansi_bright_aqua: ansiColors.bright_aqua,
+      ansi_bright_white: ansiColors.bright_white,
     };
   }
 
@@ -112,6 +131,15 @@ class EverforestGenerator {
   async generateVariant(variant, contrast) {
     console.log(`   - Processing ${variant}-${contrast} templates...`);
 
+    // Process terminal themes
+    await this.processTerminals(variant, contrast);
+
+    // Process editor themes
+    await this.processEditors(variant, contrast);
+
+    // Process web themes
+    await this.processWeb(variant, contrast);
+
     // Process CLI tool templates
     await this.processCLITools(variant, contrast);
   }
@@ -123,9 +151,40 @@ class EverforestGenerator {
       { name: 'delta', template: 'template.txt', output: 'gitconfig.delta' },
       { name: 'tmux', template: 'template.txt', output: 'everforest.tmux.conf' },
       { name: 'ls_colors', template: 'template.txt', output: 'everforest.sh' },
+      { name: 'bat', template: 'template.txt', output: 'everforest.tmTheme' },
+      { name: 'eza', template: 'template.txt', output: 'everforest.sh' },
+      { name: 'ripgrep', template: 'template.txt', output: '.ripgreprc' },
+      { name: 'zsh', template: 'template.txt', output: 'everforest.zsh' },
+      { name: 'htop', template: 'template.txt', output: 'htoprc' },
+      { name: 'btop', template: 'template.txt', output: 'everforest.theme' },
+      { name: 'bottom', template: 'template.txt', output: 'bottom.toml' },
+      { name: 'atuin', template: 'template.txt', output: 'config.toml' },
+      { name: 'fd', template: 'template.txt', output: 'config' },
+      { name: 'gitui', template: 'template.txt', output: 'theme.ron' },
+      { name: 'glances', template: 'template.txt', output: 'glances.conf' },
+      { name: 'jq', template: 'template.txt', output: 'jq-colors.sh' },
+      { name: 'lazygit', template: 'template.txt', output: 'config.yml' },
+      { name: 'less', template: 'template.txt', output: 'lesskey' },
+      { name: 'lf', template: 'template.txt', output: 'colors' },
+      { name: 'mc', template: 'template.txt', output: 'everforest.ini' },
+      { name: 'neofetch', template: 'template.txt', output: 'config.conf' },
+      { name: 'ranger', template: 'template.txt', output: 'colorscheme.py' },
+      { name: 'tig', template: 'template.txt', output: 'config' },
+      { name: 'zoxide', template: 'template.txt', output: 'zoxide.sh' },
+    ];
+
+    // Tools with fish templates
+    const fishTools = [
+      { name: 'fzf', template: 'template.fish', output: 'everforest.fish' },
+      { name: 'eza', template: 'template.fish', output: 'everforest.fish' },
+      { name: 'ls_colors', template: 'template.fish', output: 'everforest.fish' },
     ];
 
     for (const tool of cliTools) {
+      await this.processToolTemplate(tool, variant, contrast);
+    }
+
+    for (const tool of fishTools) {
       await this.processToolTemplate(tool, variant, contrast);
     }
 
@@ -133,16 +192,142 @@ class EverforestGenerator {
     await this.processFishTemplates(variant, contrast);
   }
 
-  async processToolTemplate(tool, variant, contrast) {
-    const templatePath = path.join(rootDir, 'cli', tool.name, tool.template);
-    const outputPath = path.join(rootDir, 'cli', tool.name, tool.output);
+  async processTerminals(variant, contrast) {
+    const terminals = [
+      { name: 'alacritty', template: 'template.yml', output: 'everforest.yml' },
+      { name: 'kitty', template: 'template.conf', output: 'everforest.conf' },
+      { name: 'wezterm', template: 'template.lua', output: 'everforest.lua' },
+      { name: 'windows-terminal', template: 'template.json', output: 'everforest.json' },
+      { name: 'ghostty', template: 'template.conf', output: 'everforest.conf' },
+    ];
+
+    for (const terminal of terminals) {
+      await this.processTerminalTemplate(terminal, variant, contrast);
+    }
+  }
+
+  async processTerminalTemplate(terminal, variant, contrast) {
+    const templatePath = path.join(rootDir, 'terminals', terminal.name, terminal.template);
+
+    // Create variant-specific output filename
+    const baseName = path.parse(terminal.output).name;
+    const extension = path.parse(terminal.output).ext;
+    const variantOutput = `${baseName}-${variant}-${contrast}${extension}`;
+    const outputPath = path.join(rootDir, 'terminals', terminal.name, variantOutput);
 
     try {
       if (await this.fileExists(templatePath)) {
         const processed = await this.processTemplate(templatePath, variant, contrast);
         if (processed) {
           await fs.writeFile(outputPath, processed);
-          console.log(`     ✅ Generated ${tool.name}/${tool.output}`);
+          console.log(`     ✅ Generated ${terminal.name}/${variantOutput}`);
+        }
+      }
+    } catch (error) {
+      console.error(`     ❌ Failed to process ${terminal.name}: ${error.message}`);
+    }
+  }
+
+  async processEditors(variant, contrast) {
+    const editors = [
+      { name: 'vim-nvim', template: 'template.lua', output: 'everforest.lua' },
+      { name: 'vscode', template: 'template.json', output: 'everforest-theme.json' },
+      { name: 'jetbrains', template: 'template.xml', output: 'everforest.xml' },
+      { name: 'zed', template: 'template.json', output: 'everforest.json' },
+      { name: 'sublime', template: 'template.tmTheme', output: 'everforest.tmTheme' },
+    ];
+
+    for (const editor of editors) {
+      await this.processEditorTemplate(editor, variant, contrast);
+    }
+  }
+
+  async processEditorTemplate(editor, variant, contrast) {
+    const templatePath = path.join(rootDir, 'editors', editor.name, editor.template);
+
+    // Create variant-specific output filename
+    const baseName = path.parse(editor.output).name;
+    const extension = path.parse(editor.output).ext;
+    const variantOutput = `${baseName}-${variant}-${contrast}${extension}`;
+    const outputPath = path.join(rootDir, 'editors', editor.name, variantOutput);
+
+    try {
+      if (await this.fileExists(templatePath)) {
+        const processed = await this.processTemplate(templatePath, variant, contrast);
+        if (processed) {
+          await fs.writeFile(outputPath, processed);
+          console.log(`     ✅ Generated ${editor.name}/${variantOutput}`);
+        }
+      }
+    } catch (error) {
+      console.error(`     ❌ Failed to process ${editor.name}: ${error.message}`);
+    }
+  }
+
+  async processWeb(variant, contrast) {
+    await this.processWebCSS(variant, contrast);
+  }
+
+  async processWebCSS(variant, contrast) {
+    const templatePath = path.join(rootDir, 'web', 'css', 'template.css');
+    const outputFile = `everforest-${variant}-${contrast}.css`;
+    const outputPath = path.join(rootDir, 'web', 'css', outputFile);
+
+    try {
+      if (await this.fileExists(templatePath)) {
+        const processed = await this.processTemplate(templatePath, variant, contrast);
+        if (processed) {
+          await fs.writeFile(outputPath, processed);
+          console.log(`     ✅ Generated web/css/${outputFile}`);
+        }
+      } else {
+        // If no template exists, still generate a basic CSS file
+        const colors = this.getColorsForVariant(variant, contrast);
+        const cssContent = this.generateBasicCSS(colors, variant, contrast);
+        await fs.writeFile(outputPath, cssContent);
+        console.log(`     ✅ Generated web/css/${outputFile} (basic)`);
+      }
+    } catch (error) {
+      console.error(`     ❌ Failed to process web CSS: ${error.message}`);
+    }
+  }
+
+  generateBasicCSS(colors, variant, contrast) {
+    return `:root {
+  /* Everforest ${variant}-${contrast} theme */
+  --everforest-bg: ${colors.bg};
+  --everforest-bg1: ${colors.bg1};
+  --everforest-bg2: ${colors.bg2};
+  --everforest-fg: ${colors.fg};
+  --everforest-red: ${colors.red};
+  --everforest-orange: ${colors.orange};
+  --everforest-yellow: ${colors.yellow};
+  --everforest-green: ${colors.green};
+  --everforest-aqua: ${colors.aqua};
+  --everforest-blue: ${colors.blue};
+  --everforest-purple: ${colors.purple};
+  --everforest-gray1: ${colors.gray1};
+  --everforest-gray2: ${colors.gray2};
+  --everforest-gray3: ${colors.gray3};
+}
+`;
+  }
+
+  async processToolTemplate(tool, variant, contrast) {
+    const templatePath = path.join(rootDir, 'cli', tool.name, tool.template);
+
+    // Create variant-specific output filename
+    const baseName = path.parse(tool.output).name;
+    const extension = path.parse(tool.output).ext;
+    const variantOutput = `${baseName}-${variant}-${contrast}${extension}`;
+    const outputPath = path.join(rootDir, 'cli', tool.name, variantOutput);
+
+    try {
+      if (await this.fileExists(templatePath)) {
+        const processed = await this.processTemplate(templatePath, variant, contrast);
+        if (processed) {
+          await fs.writeFile(outputPath, processed);
+          console.log(`     ✅ Generated ${tool.name}/${variantOutput}`);
         }
       }
     } catch (error) {

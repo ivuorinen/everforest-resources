@@ -2,19 +2,19 @@
 # Generated from template - do not edit manually
 
 format = """
-[](##e9e1cc)\
+[](#3a464c)\
 $username\
-[](bg:##e4dfc8 fg:##e9e1cc)\
+[](bg:#434f55 fg:#3a464c)\
 $directory\
-[](fg:##e4dfc8 bg:##f0e5cf)\
+[](fg:#434f55 bg:#323d43)\
 $git_branch\
 $git_status\
-[](fg:##f0e5cf bg:##e9e1cc)\
+[](fg:#323d43 bg:#3a464c)\
 $nodejs\
 $rust\
 $golang\
 $php\
-[](fg:##e9e1cc)\
+[](fg:#3a464c)\
 """
 
 # Disable the blank line at the start of the prompt
@@ -22,42 +22,42 @@ add_newline = false
 
 [username]
 show_always = true
-style_user = "bg:##e9e1cc fg:##5c6a72"
-style_root = "bg:##e9e1cc fg:##e67e80"
+style_user = "bg:#3a464c fg:#d3c6aa"
+style_root = "bg:#3a464c fg:#e67e80"
 format = '[$user ]($style)'
 disabled = false
 
 [directory]
-style = "bg:##e4dfc8 fg:##7fbbb3"
+style = "bg:#434f55 fg:#7fbbb3"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:##f0e5cf fg:##a7c080"
+style = "bg:#323d43 fg:#a7c080"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:##f0e5cf fg:##e67e80"
+style = "bg:#323d43 fg:#e67e80"
 format = '[$all_status$ahead_behind ]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:##e9e1cc fg:##dbbc7f"
+style = "bg:#3a464c fg:#dbbc7f"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
-style = "bg:##e9e1cc fg:##e69875"
+style = "bg:#3a464c fg:#e69875"
 format = '[ $symbol ($version) ]($style)'
 
 [golang]
 symbol = ""
-style = "bg:##e9e1cc fg:##83c092"
+style = "bg:#3a464c fg:#83c092"
 format = '[ $symbol ($version) ]($style)'
 
 [php]
 symbol = ""
-style = "bg:##e9e1cc fg:##d699b6"
+style = "bg:#3a464c fg:#d699b6"
 format = '[ $symbol ($version) ]($style)'

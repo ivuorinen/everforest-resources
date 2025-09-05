@@ -1,0 +1,6 @@
+# Everforest colors for jq
+# Generated from template - do not edit manually
+# Source this in your shell configuration
+
+# JQ color settings
+export JQ_COLORS="{{ansi_bright_black}}:{{ansi_red}}:{{ansi_green}}:{{ansi_yellow}}:{{ansi_blue}}:{{ansi_purple}}:{{ansi_aqua}}:{{ansi_white}}"

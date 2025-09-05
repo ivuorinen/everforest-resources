@@ -1,0 +1,40 @@
+# Everforest theme for tig
+# Generated from template - do not edit manually
+
+# Colors
+color default                   {{fg}}      {{bg}}
+color cursor                    {{fg}}      {{bg1}}      bold
+color status                    {{green}}   {{bg}}
+color delimiter                 {{gray2}}   {{bg}}
+color date                      {{aqua}}    {{bg}}
+color mode                      {{yellow}}  {{bg}}       bold
+color id                        {{purple}}  {{bg}}
+color overflow                  {{red}}     {{bg}}
+color header                    {{blue}}    {{bg}}       bold
+color section                   {{yellow}}  {{bg}}       bold
+color directory                 {{blue}}    {{bg}}
+color file                      {{fg}}      {{bg}}
+color grep.file                 {{blue}}    {{bg}}
+color file-size                 {{fg}}      {{bg}}
+color line-number               {{gray2}}   {{bg}}
+color title-blur                {{gray2}}   {{bg}}
+color title-focus               {{gray2}}   {{bg}}       bold
+
+# Diff colors
+color diff-header               {{yellow}}  {{bg}}
+color diff-index                {{blue}}    {{bg}}
+color diff-chunk                {{purple}}  {{bg}}
+color diff-add                  {{green}}   {{bg}}
+color diff-del                  {{red}}     {{bg}}
+color diff-add-highlight        {{green}}   {{bg1}}      bold
+color diff-del-highlight        {{red}}     {{bg1}}      bold
+
+# Graph colors
+color graph-commit              {{red}}     {{bg}}
+color tree.head                 {{yellow}}  {{bg}}       bold
+color tree.main                 {{blue}}    {{bg}}       bold
+color tree.merge                {{purple}}  {{bg}}       bold
+
+# Help colors
+color help-group                {{blue}}    {{bg}}
+color help-action               {{yellow}}  {{bg}}
