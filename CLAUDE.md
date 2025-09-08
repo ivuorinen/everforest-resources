@@ -56,7 +56,7 @@ Core development commands for the project:
 
 ## Installation and Verification
 
-    ./cli/install.sh                      # Deploy all configs to ~/.config
+    ./install.sh cli                      # Deploy CLI configs to ~/.config
     ENGINE=docker ./verify/verify.sh      # Verify in container
 
 ## Implementation Guidelines

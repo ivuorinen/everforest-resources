@@ -1,4 +1,4 @@
--- Everforest theme for Neovim
+-- Everforest light-soft theme for Neovim
 -- Generated from template - do not edit manually
 
 local M = {}

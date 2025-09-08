@@ -1,4 +1,4 @@
-# Everforest theme for bat
+# Everforest light-hard theme for bat
 # Place this in ~/.config/bat/themes/everforest.tmTheme
 # Then run: bat cache --build
 

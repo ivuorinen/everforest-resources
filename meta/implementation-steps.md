@@ -53,7 +53,7 @@ git remote add origin git@github.com:ivuorinen/everforest-resources.git
 
 7) Installer & verifier
 
-- Add cli/install.sh (symlink/copy all configs; load dircolors).
+- Add main install.sh (symlink/copy all configs; load dircolors; use `./install.sh cli` for CLI-only).
 - Add verify/verify.sh (build Debian container; check tools; fish sourcing).
 - Integrate cli-verify job in CI (temp HOME, installer, then verifier).
 
@@ -74,7 +74,7 @@ git remote add origin git@github.com:ivuorinen/everforest-resources.git
 - Run: npm run generate
 - Run: npm run validate
 - Run: make snapshots (or npm run snapshots)
-- Run: ./cli/install.sh then ENGINE=docker ./verify/verify.sh
+- Run: ./install.sh cli then ENGINE=docker ./verify/verify.sh
 
 11) First commit & PR
 

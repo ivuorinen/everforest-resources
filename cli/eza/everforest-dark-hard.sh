@@ -1,4 +1,4 @@
-# Everforest theme for eza
+# Everforest dark-hard theme for eza
 # Add these environment variables to your shell config (e.g., ~/.bashrc, ~/.zshrc)
 
 # Everforest color definitions for eza

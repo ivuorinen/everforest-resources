@@ -58,11 +58,120 @@ class EverforestGenerator {
         processed = processed.replace(placeholder, value);
       });
 
+      // Add variant information to header comments
+      processed = this.addVariantToHeader(processed, variant, contrast);
+
       return processed;
     } catch (error) {
       console.error(`❌ Failed to process template ${templatePath}:`, error.message);
       return null;
     }
+  }
+
+  addVariantToHeader(content, variant, contrast) {
+    const variantName = `${variant}-${contrast}`;
+    const lines = content.split('\n');
+
+    // Find the first header comment line
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+
+      // Look for lines that start with comment characters and contain "Everforest"
+      // Exclude CSS custom properties (which start with -- but contain :)
+      const isLuaComment = line.startsWith('-- ') && !line.includes(':');
+      const isOtherComment =
+        line.startsWith('#') ||
+        line.startsWith('//') ||
+        line.startsWith('<!--') ||
+        line.startsWith('/*') ||
+        line.startsWith(';');
+      const isCSSProperty = line.startsWith('--') && line.includes(':');
+
+      if (
+        (isLuaComment || isOtherComment) &&
+        !isCSSProperty &&
+        line.toLowerCase().includes('everforest')
+      ) {
+        // Modify the line to include variant information
+        const commentChar = this.getCommentChar(line);
+        const toolName = this.extractToolName(line);
+
+        if (toolName) {
+          if (commentChar === '<!--') {
+            lines[i] = `${commentChar} Everforest ${variantName} theme for ${toolName} -->`;
+          } else if (commentChar === '/*') {
+            lines[i] = `${commentChar} Everforest ${variantName} theme for ${toolName} */`;
+          } else {
+            lines[i] = `${commentChar} Everforest ${variantName} theme for ${toolName}`;
+          }
+        } else {
+          if (commentChar === '<!--') {
+            lines[i] = `${commentChar} Everforest ${variantName} theme -->`;
+          } else if (commentChar === '/*') {
+            lines[i] = `${commentChar} Everforest ${variantName} theme */`;
+          } else {
+            lines[i] = `${commentChar} Everforest ${variantName} theme`;
+          }
+        }
+        break;
+      }
+    }
+
+    return lines.join('\n');
+  }
+
+  getCommentChar(line) {
+    if (line.startsWith('<!--')) {
+      return '<!--';
+    }
+    if (line.startsWith('/*')) {
+      return '/*';
+    }
+    if (line.startsWith('--')) {
+      return '--';
+    }
+    if (line.startsWith('#')) {
+      return '#';
+    }
+    if (line.startsWith('//')) {
+      return '//';
+    }
+    if (line.startsWith(';')) {
+      return ';';
+    }
+    return '#'; // fallback
+  }
+
+  extractToolName(line) {
+    // Look for "for X" pattern first - allow hyphens, spaces, and alphanumeric characters
+    // Stop at comment endings or line endings, but not at hyphens
+    let match = line.match(/for\s+([\w\s-]+?)(?:\s*(?:#|\*\/|-->|--|$))/i);
+    if (match) {
+      return match[1].trim();
+    }
+
+    // Try alternative patterns with better handling of tool names
+    const patterns = [
+      /Everforest.*theme.*for\s+([\w\s-]+?)(?:\s*(?:#|\*\/|-->|--|$))/i,
+      /Everforest\s+([\w-]+)/i,
+    ];
+
+    for (const pattern of patterns) {
+      match = line.match(pattern);
+      if (match?.[1] && !match[1].toLowerCase().includes('everforest')) {
+        const toolName = match[1].trim();
+        // Filter out generic words but allow compound names
+        if (
+          !['theme', 'css', 'variables', 'utility', 'classes', 'and'].includes(
+            toolName.toLowerCase()
+          )
+        ) {
+          return toolName;
+        }
+      }
+    }
+
+    return null;
   }
 
   getColorsForVariant(variant, contrast) {
@@ -293,8 +402,11 @@ class EverforestGenerator {
   }
 
   generateBasicCSS(colors, variant, contrast) {
-    return `:root {
-  /* Everforest ${variant}-${contrast} theme */
+    return `/* Everforest ${variant}-${contrast} theme for CSS */
+/* Generated from template - do not edit manually */
+
+:root {
+  /* Everforest ${variant}-${contrast} color variables */
   --everforest-bg: ${colors.bg};
   --everforest-bg1: ${colors.bg1};
   --everforest-bg2: ${colors.bg2};

@@ -1,4 +1,4 @@
-# Everforest theme for fzf (fish shell)
+# Everforest light-medium theme
 # Generated from template - do not edit manually
 
 set -gx FZF_DEFAULT_OPTS " \

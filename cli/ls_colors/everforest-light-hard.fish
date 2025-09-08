@@ -1,4 +1,4 @@
-# Everforest LS_COLORS configuration for fish shell
+# Everforest light-hard theme for fish shell
 # Generated from template - do not edit manually
 
 # Main LS_COLORS export (fish uses set -gx instead of export)

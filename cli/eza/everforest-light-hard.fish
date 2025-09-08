@@ -1,4 +1,4 @@
-# Everforest theme for eza (fish shell)
+# Everforest light-hard theme
 # Add these environment variables to your fish config (e.g., ~/.config/fish/config.fish)
 
 # Everforest color definitions for eza

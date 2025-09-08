@@ -1,4 +1,4 @@
-# Everforest colorscheme for Ranger
+# Everforest light-hard theme for Ranger
 # Generated from template - do not edit manually
 # Place this file in ~/.config/ranger/colorschemes/
 

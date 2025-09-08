@@ -6,8 +6,8 @@ This guide covers how to install and configure Everforest themes across differen
 
 ### All CLI Tools at Once
 ```bash
-# Copy all configurations to ~/.config (macOS/Linux)
-./cli/install.sh
+# Install CLI configurations to ~/.config (macOS/Linux)
+./install.sh cli
 
 # Or manually copy specific tools:
 cp cli/starship/starship-dark-medium.toml ~/.config/starship.toml
@@ -229,11 +229,11 @@ source cli/jq/jq-colors-dark-medium.sh
 Use the provided installation script:
 ```bash
 # Install all CLI tools
-./cli/install.sh
+./install.sh cli
 
 # Install specific category
-./cli/install.sh terminals
-./cli/install.sh editors
+./install.sh terminals
+./install.sh editors
 ```
 
 ### Theme Switching

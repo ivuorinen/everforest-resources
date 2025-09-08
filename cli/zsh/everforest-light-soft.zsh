@@ -1,4 +1,4 @@
-# Everforest theme for Zsh
+# Everforest light-soft theme for Zsh
 # Add this to your ~/.zshrc
 
 # Everforest color scheme for Zsh syntax highlighting and prompt

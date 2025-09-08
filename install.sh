@@ -54,10 +54,10 @@ VARIANTS:
     light-hard, light-medium, light-soft
 
 EXAMPLES:
-    $0                          # Install all with dark-medium variant
-    $0 --variant light-medium   # Install all with light-medium variant
-    $0 terminals                # Install only terminal themes
-    $0 --dry-run cli            # Preview CLI installation
+    $0                          # Install all categories with all variants
+    $0 --variant light-medium   # Install all with light-medium variant only
+    $0 terminals                # Install terminal themes for all variants
+    $0 --dry-run cli            # Preview CLI installation (all variants)
 
 EOF
 }
@@ -68,6 +68,7 @@ CATEGORY="all"
 DRY_RUN=false
 FORCE=false
 CREATE_BACKUP=false
+INSTALL_ALL_VARIANTS=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -109,6 +110,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# If no variant was explicitly set and we're installing all, install all variants
+if [[ "$VARIANT" == "$DEFAULT_VARIANT" && $# -eq 0 ]]; then
+  INSTALL_ALL_VARIANTS=true
+fi
+
 # Tool detection functions
 check_tool() {
   command -v "$1" >/dev/null 2>&1
@@ -146,7 +152,13 @@ install_tool_config() {
   local display_name="$5"
 
   if check_tool_available "$tool_name" "$config_name"; then
-    install_file "$src" "$dest" "$display_name"
+    install_file "$src" "$dest" "$display_name" || {
+      if [[ "$DRY_RUN" != "true" ]]; then
+        log_error "Failed to install $display_name"
+        return 1
+      fi
+      # In dry-run mode, continue processing even if install_file failed
+    }
   else
     log_info "Skipping $display_name (tool not installed and no config directory found)"
   fi
@@ -180,6 +192,20 @@ create_backup() {
   log_success "Backup created at $BACKUP_DIR"
 }
 
+# Install file wrapper that handles errors gracefully in dry-run mode
+install_file_safe() {
+  local src="$1"
+  local dest="$2" 
+  local name="$3"
+  
+  install_file "$src" "$dest" "$name" || {
+    if [[ "$DRY_RUN" != "true" ]]; then
+      return 1
+    fi
+    # In dry-run mode, continue even if install failed
+  }
+}
+
 # Install file with safety checks
 install_file() {
   local src="$1"
@@ -187,13 +213,23 @@ install_file() {
   local name="$3"
 
   if [[ ! -f "$src" ]]; then
-    log_warning "$name source file not found: $src"
-    return 1
+    if [[ "$DRY_RUN" == "true" ]]; then
+      log_warning "[DRY RUN] $name source file not found: $src"
+      return 0  # Don't fail in dry-run mode
+    else
+      log_warning "$name source file not found: $src"
+      return 1
+    fi
   fi
 
   if [[ -f "$dest" && "$FORCE" == "false" ]]; then
-    log_warning "$name already exists: $dest (use --force to overwrite)"
-    return 1
+    if [[ "$DRY_RUN" == "true" ]]; then
+      log_warning "[DRY RUN] $name would overwrite existing file: $dest"
+      return 0  # Don't fail in dry-run mode
+    else
+      log_warning "$name already exists: $dest (use --force to overwrite)"
+      return 1
+    fi
   fi
 
   if [[ "$DRY_RUN" == "true" ]]; then
@@ -253,7 +289,7 @@ install_editors() {
   log_header "Installing Editor Themes ($VARIANT)"
 
   # Neovim
-  install_file \
+  install_file_safe \
     "$SCRIPT_DIR/editors/vim-nvim/everforest-$VARIANT.lua" \
     "$CONFIG_DIR/nvim/colors/everforest-$VARIANT.lua" \
     "Neovim theme"
@@ -264,7 +300,7 @@ install_editors() {
 
   if [[ -d "$vscode_dir" ]]; then
     mkdir -p "$vscode_dir/everforest-themes/themes"
-    install_file \
+    install_file_safe \
       "$SCRIPT_DIR/editors/vscode/everforest-theme-$VARIANT.json" \
       "$vscode_dir/everforest-themes/themes/everforest-$VARIANT.json" \
       "VS Code theme"
@@ -275,7 +311,7 @@ install_editors() {
   for ide in IntelliJIdea PyCharm WebStorm PhpStorm GoLand RustRover; do
     local config_path="$HOME/Library/Application Support/JetBrains/$ide*/colors"
     if [[ -d $config_path ]]; then
-      install_file \
+      install_file_safe \
         "$SCRIPT_DIR/editors/jetbrains/everforest-$VARIANT.xml" \
         "$config_path/everforest-$VARIANT.icls" \
         "JetBrains theme"
@@ -284,7 +320,7 @@ install_editors() {
   done
 
   # Zed
-  install_file \
+  install_file_safe \
     "$SCRIPT_DIR/editors/zed/everforest-$VARIANT.json" \
     "$CONFIG_DIR/zed/themes/everforest-$VARIANT.json" \
     "Zed theme"
@@ -294,7 +330,7 @@ install_editors() {
   [[ ! -d "$sublime_packages" ]] && sublime_packages="$HOME/.config/sublime-text/Packages/User"
 
   if [[ -d "$sublime_packages" ]]; then
-    install_file \
+    install_file_safe \
       "$SCRIPT_DIR/editors/sublime/everforest-$VARIANT.tmTheme" \
       "$sublime_packages/everforest-$VARIANT.tmTheme" \
       "Sublime Text theme"
@@ -311,13 +347,21 @@ install_cli() {
     "$CONFIG_DIR/starship/themes/everforest-$VARIANT.toml" \
     "Starship theme"
 
-  install_tool_config "fish" "fish" \
-    "$SCRIPT_DIR/cli/fish/everforest-$VARIANT.fish" \
-    "$CONFIG_DIR/fish/conf.d/everforest-$VARIANT.fish" \
-    "Fish colors"
+  # Install fish colors (all variants - fish can handle multiple themes)
+  if check_tool_available "fish" "fish"; then
+    log_info "Installing Fish colors for all variants..."
+    for variant in dark-hard dark-medium dark-soft light-hard light-medium light-soft; do
+      install_file_safe \
+        "$SCRIPT_DIR/cli/fish/everforest-$variant.fish" \
+        "$CONFIG_DIR/fish/conf.d/everforest-$variant.fish" \
+        "Fish colors ($variant)"
+    done
+  else
+    log_info "Skipping Fish colors (fish not installed and no config directory found)"
+  fi
 
   # File and directory tools
-  install_file \
+  install_file_safe \
     "$SCRIPT_DIR/cli/ls_colors/everforest-$VARIANT.sh" \
     "$CONFIG_DIR/dircolors/everforest.sh" \
     "LS_COLORS"
@@ -328,7 +372,7 @@ install_cli() {
     "eza colors"
 
   # Git tools
-  install_file \
+  install_file_safe \
     "$SCRIPT_DIR/cli/delta/gitconfig-$VARIANT.delta" \
     "$CONFIG_DIR/git/everforest-delta" \
     "Git delta"
@@ -378,14 +422,14 @@ install_web() {
   local web_dir="$HOME/.everforest-web"
   mkdir -p "$web_dir"
 
-  install_file \
+  install_file_safe \
     "$SCRIPT_DIR/web/css/everforest-$VARIANT.css" \
     "$web_dir/everforest-$VARIANT.css" \
     "CSS theme"
 
   # Copy demo files
   if [[ -f "$SCRIPT_DIR/docs/examples/web-demo.html" ]]; then
-    install_file \
+    install_file_safe \
       "$SCRIPT_DIR/docs/examples/web-demo.html" \
       "$web_dir/demo.html" \
       "Web demo"
@@ -435,38 +479,135 @@ EOF
   fi
 }
 
+# Print post-installation instructions for all variants
+print_all_variants_instructions() {
+  log_header "Installation Complete - All Variants!"
+
+  cat <<EOF
+
+All Everforest variants have been installed:
+• dark-hard, dark-medium, dark-soft
+• light-hard, light-medium, light-soft
+
+${CYAN}Terminals:${NC}
+  • Alacritty: Choose from ~/.config/alacritty/themes/everforest-*.yml files
+  • Kitty: Choose from ~/.config/kitty/themes/everforest-*.conf files  
+  • WezTerm: Choose from ~/.config/wezterm/colors/everforest-*.lua files
+
+${CYAN}Shell:${NC}
+  • Add to your shell config: source ~/.config/fzf/everforest.sh
+  • Add to your shell config: source ~/.config/dircolors/everforest.sh
+  • Fish users: All variant themes auto-loaded from conf.d/everforest-*.fish
+  • Starship: Choose from ~/.config/starship/themes/everforest-*.toml files
+
+${CYAN}Editors:${NC}
+  • Neovim: Use ':colorscheme everforest-{variant}' with any installed variant
+  • VS Code: Reload and select from available Everforest themes
+  • JetBrains: Multiple Everforest variants available in Color Scheme settings
+
+${CYAN}CLI Tools:${NC}
+  • LazyGit: Choose from ~/.config/lazygit/themes/everforest-*.yml files
+  • GitUI: Choose from ~/.config/gitui/themes/everforest-*.ron files  
+  • htop: Choose from ~/.config/htop/themes/everforest-* files
+  • bottom: Use --config with any ~/.config/bottom/themes/everforest-*.toml
+
+${CYAN}Environment Variables:${NC}
+  export STARSHIP_CONFIG=~/.config/starship.toml
+  export EVERFOREST_VARIANT={your-preferred-variant}
+
+${CYAN}Switch Variants:${NC}
+  Change EVERFOREST_VARIANT environment variable to switch between variants
+  Available variants: dark-hard, dark-medium, dark-soft, light-hard, light-medium, light-soft
+
+EOF
+
+  if [[ "$CREATE_BACKUP" == "true" ]]; then
+    log_info "Backup saved to: $BACKUP_DIR"
+  fi
+}
+
 # Main installation logic
 main() {
   log_header "Everforest Resources Installer"
-  log_info "Variant: $VARIANT"
-  log_info "Category: $CATEGORY"
+  
+  if [[ "$INSTALL_ALL_VARIANTS" == "true" ]]; then
+    log_info "Installing all variants"
+    log_info "Category: $CATEGORY"
+  else
+    log_info "Variant: $VARIANT"
+    log_info "Category: $CATEGORY"
+  fi
+  
   [[ "$DRY_RUN" == "true" ]] && log_info "Mode: DRY RUN"
 
-  validate_variant
   create_backup
 
-  case "$CATEGORY" in
-  all)
-    install_terminals
-    install_editors
-    install_cli
-    install_web
-    ;;
-  terminals)
-    install_terminals
-    ;;
-  editors)
-    install_editors
-    ;;
-  cli)
-    install_cli
-    ;;
-  web)
-    install_web
-    ;;
-  esac
-
-  [[ "$DRY_RUN" == "false" ]] && print_instructions
+  if [[ "$INSTALL_ALL_VARIANTS" == "true" ]]; then
+    # Install all variants
+    local all_variants=("dark-hard" "dark-medium" "dark-soft" "light-hard" "light-medium" "light-soft")
+    for variant in "${all_variants[@]}"; do
+      VARIANT="$variant"
+      validate_variant
+      
+      log_header "Installing variant: $variant"
+      
+      case "$CATEGORY" in
+      all)
+        install_terminals
+        install_editors
+        install_cli
+        install_web
+        ;;
+      terminals)
+        install_terminals
+        ;;
+      editors)
+        install_editors
+        ;;
+      cli)
+        install_cli
+        ;;
+      web)
+        install_web
+        ;;
+      esac
+    done
+    
+    if [[ "$DRY_RUN" == "false" ]]; then
+      print_all_variants_instructions
+    fi
+  else
+    # Install single variant
+    validate_variant
+    
+    case "$CATEGORY" in
+    all)
+      install_terminals
+      install_editors
+      install_cli
+      install_web
+      ;;
+    terminals)
+      install_terminals
+      ;;
+    editors)
+      install_editors
+      ;;
+    cli)
+      install_cli
+      ;;
+    web)
+      install_web
+      ;;
+    esac
+    
+    [[ "$DRY_RUN" == "false" ]] && print_instructions
+  fi
+  
+  # Ensure dry-run exits successfully
+  if [[ "$DRY_RUN" == "true" ]]; then
+    exit 0
+  fi
 }
 
 # Run main function

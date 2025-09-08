@@ -40,7 +40,7 @@ make demo                # Run web demo server
 
 ## Installation & Deployment
 ```bash
-./cli/install.sh         # Deploy all configs to ~/.config (when implemented)
+./install.sh cli         # Deploy CLI configs to ~/.config
 ENGINE=docker ./verify/verify.sh  # Verify in container (when implemented)
 ```
 

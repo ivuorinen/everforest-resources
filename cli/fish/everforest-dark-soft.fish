@@ -1,4 +1,4 @@
-# Everforest color scheme for fish shell
+# Everforest dark-soft theme for fish shell
 # Generated from template - do not edit manually
 
 # Set fish colors

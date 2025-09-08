@@ -8,7 +8,7 @@ Unofficial hub for Everforest color scheme resources. Generator-first approach f
     npm run generate
 
     # Install CLI configurations
-    ./cli/install.sh
+    ./install.sh cli
 
     # Verify installation
     ENGINE=docker ./verify/verify.sh

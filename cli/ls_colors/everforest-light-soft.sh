@@ -1,4 +1,4 @@
-# Everforest LS_COLORS configuration
+# Everforest light-soft theme for LS_COLORS
 # Generated from template - do not edit manually
 
 # Main LS_COLORS export

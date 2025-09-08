@@ -1,4 +1,4 @@
-# Everforest theme for fzf
+# Everforest dark-medium theme for fzf
 # Generated from template - do not edit manually
 
 export FZF_DEFAULT_OPTS=" \

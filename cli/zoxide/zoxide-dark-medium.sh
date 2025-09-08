@@ -1,4 +1,4 @@
-# Everforest colors for zoxide
+# Everforest dark-medium theme for zoxide
 # Generated from template - do not edit manually
 # Source this in your shell configuration
 

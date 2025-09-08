@@ -1,4 +1,4 @@
--- Everforest theme for WezTerm
+-- Everforest dark-hard theme for WezTerm
 -- Generated from template - do not edit manually
 
 local M = {}

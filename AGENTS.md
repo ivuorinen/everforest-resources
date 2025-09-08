@@ -84,7 +84,7 @@ This document consolidates all gathered knowledge for the github.com/ivuorinen/e
 
 ## 7. Installer
 
-- cli/install.sh deploys all configs under ~/.config.
+- install.sh deploys configs under ~/.config (use `./install.sh cli` for CLI tools only).
 - Symlinks or copies files for shells, tools, editors unless file already exists.
 - If file already exists, check if it is an Everforest config.
   - If it is, overwrite with new version.
@@ -147,7 +147,7 @@ snapshots → run Playwright snapshots
 ### Everforest CLI
 
 Contains overview of terminals, web, CLI tools, prompts, editors.
-Install with ./cli/install.sh
+Install with ./install.sh cli
 Verify with ENGINE=docker ./verify/verify.sh
 
 Notes:

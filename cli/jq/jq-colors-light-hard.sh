@@ -1,4 +1,4 @@
-# Everforest colors for jq
+# Everforest light-hard theme for jq
 # Generated from template - do not edit manually
 # Source this in your shell configuration
 

@@ -4,7 +4,7 @@ Command-line tools and terminal configurations for the Everforest color scheme.
 
 ## Installation
 
-    ./cli/install.sh
+    ./install.sh cli
 
 This installs configurations for all supported CLI tools to `~/.config`.
 
