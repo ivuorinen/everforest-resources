@@ -57,7 +57,7 @@ snapshots:
 
 verify:
 	@echo "🔬 Verifying installation in container..."
-	ENGINE=docker ./verify/verify.sh
+	ENGINE=docker ./verify.sh
 
 # CI pipeline
 ci: lint generate validate test

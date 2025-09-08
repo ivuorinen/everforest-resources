@@ -41,7 +41,7 @@ After installation:
 
 ## Verification
 
-    ENGINE=docker ./verify/verify.sh
+    ENGINE=docker ./verify.sh
 
 Tests all configurations in a clean container environment.
 

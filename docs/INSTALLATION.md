@@ -17,7 +17,7 @@ cp cli/alacritty/everforest-dark-medium.yml ~/.config/alacritty/themes/
 ### Verify Installation
 ```bash
 # Run verification script in container
-ENGINE=docker ./verify/verify.sh
+ENGINE=docker ./verify.sh
 ```
 
 ## Platform-Specific Installation

@@ -11,7 +11,7 @@ Unofficial hub for Everforest color scheme resources. Generator-first approach f
     ./install.sh cli
 
     # Verify installation
-    ENGINE=docker ./verify/verify.sh
+    ENGINE=docker ./verify.sh
 
 ## Supported Tools
 
